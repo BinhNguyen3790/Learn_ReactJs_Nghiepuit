@@ -7,12 +7,11 @@ import Product from './components/Product';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.refName = React.createRef();
   }
 
   addProduct = (e) => {
     e.preventDefault()
-    console.log(this.name);
+    console.log(this.refs.name.value);
   }
 
   render() {
@@ -59,7 +58,7 @@ class App extends Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="nameProduct">Name Product</label>
-                  <input ref={this.refName} type="text" className="form-control" id="nameProduct" aria-describedby="emailHelp" placeholder="Enter name" />
+                  <input ref="name" type="text" className="form-control" id="nameProduct" aria-describedby="emailHelp" placeholder="Enter name" />
                   <small id="emailHelp" className="form-text text-muted">Enter your name product.</small>
                 </div>
                 {/* <div className="form-group">
