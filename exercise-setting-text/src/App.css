@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.boxColor {
+  width: 32.5px;
+  height: 32.5px;
+  display: inline-block;
+  margin-right: 1rem;
+  cursor: pointer;
+  border: 2px solid #000000;
+  border-radius: 5px;
+}
+.boxColor:last-child {
+  margin-right: 0;
+}
+
+.active {
+  border: 5px solid #000000;
+  border-radius: 50px;
+}

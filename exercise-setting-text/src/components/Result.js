@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 
 class Result extends Component {
+
+  setStyle() {
+    return {
+      color: this.props.color
+    }
+  }
+
   render() {
     return (
       <div className="row">
@@ -10,8 +17,8 @@ class Result extends Component {
               Result
             </div>
             <div className="card-body">
-              <p className="card-title">Color: red - FontSize: 15px</p>
-              <div>
+              <p className="card-title">Color: grey - FontSize: 15px</p>
+              <div style={this.setStyle()}>
                 Hello World!
               </div>
             </div>
