@@ -4,7 +4,19 @@ class Result extends Component {
 
   setStyle() {
     return {
-      color: this.props.color
+      color: this.props.color,
+    }
+  }
+
+  setStyleBg() {
+    return {
+      backgroundColor: this.props.color
+    }
+  }
+
+  setStyleBd() {
+    return {
+      border: "1px solid " + this.props.color
     }
   }
 
@@ -13,10 +25,10 @@ class Result extends Component {
       <div className="row">
         <div className="col-md-12">
           <div className="card mt-5">
-            <div className="card-header">
+            <div className="card-header" style={this.setStyleBg()}>
               Result
             </div>
-            <div className="card-body">
+            <div className="card-body" style={this.setStyleBd()}>
               <p className="card-title">Color: grey - FontSize: 15px</p>
               <div style={this.setStyle()}>
                 Hello World!

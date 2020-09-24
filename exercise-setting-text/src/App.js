@@ -17,7 +17,6 @@ class App extends Component {
   }
 
   onSetColor = (params) => {
-    console.log(params);
     this.setState({
       color: params
     })
@@ -32,7 +31,7 @@ class App extends Component {
             <ColorPicker color={this.state.color} onReceiveColor={this.onSetColor} />
             <SizeSetting />
           </div>
-          <Result color={this.state.color}/>
+          <Result color={this.state.color} />
         </div>
       </div >
     )
