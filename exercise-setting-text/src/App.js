@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       color: "#cccccc",
-      fontSize: 15
+      fontSize: 16
     }
   }
 
@@ -22,16 +22,31 @@ class App extends Component {
     })
   }
 
+  onChangeSize = (value) => {
+    this.setState({
+      fontSize: (this.state.fontSize + value >= 8 && this.state.fontSize + value <= 36) ? this.state.fontSize + value : this.state.fontSize
+    })
+  }
+
+  onSettingDefault = (value) => {
+    if (value) {
+      this.setState({
+        color: "#cccccc",
+        fontSize: 16
+      })
+    }
+  }
+
   render() {
     return (
       <div className="main">
         <div className="container-fluid">
-          <Reset />
+          <Reset onSettingDefault={this.onSettingDefault} />
           <div className="row">
             <ColorPicker color={this.state.color} onReceiveColor={this.onSetColor} />
-            <SizeSetting />
+            <SizeSetting fontSize={this.state.fontSize} onChangeSize={this.onChangeSize} />
           </div>
-          <Result color={this.state.color} />
+          <Result color={this.state.color} fontSize={this.state.fontSize} />
         </div>
       </div >
     )

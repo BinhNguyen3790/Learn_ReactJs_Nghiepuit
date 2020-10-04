@@ -5,6 +5,7 @@ class Result extends Component {
   setStyle() {
     return {
       color: this.props.color,
+      fontSize: this.props.fontSize
     }
   }
 
@@ -29,7 +30,7 @@ class Result extends Component {
               Result
             </div>
             <div className="card-body" style={this.setStyleBd()}>
-              <p className="card-title">Color: grey - FontSize: 15px</p>
+              <p className="card-title">Color: {this.props.color} - FontSize: {this.props.fontSize}px</p>
               <div style={this.setStyle()}>
                 Hello World!
               </div>

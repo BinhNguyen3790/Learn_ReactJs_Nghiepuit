@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 
 class SizeSetting extends Component {
+
+  changeSize(value) {
+    this.props.onChangeSize(value);
+  }
+
   render() {
     return (
       <div className="col-md-6">
@@ -9,10 +14,10 @@ class SizeSetting extends Component {
             Change size text
           </div>
           <div className="card-body">
-            <p className="card-title">Click the button to change size text up or down</p>
+            <p className="card-title">Font size of text: {this.props.fontSize}px</p>
             <div className="groupBtn">
-              <button type="submit" className="btn btn-primary mr-2">Submit</button>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="button" className="btn btn-warning mr-2" onClick={() => this.changeSize(-2)}>Reduction</button>
+              <button type="button" className="btn btn-primary" onClick={() => this.changeSize(2)}>Increase</button>
             </div>
           </div>
         </div>
