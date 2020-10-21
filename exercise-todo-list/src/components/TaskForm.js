@@ -75,7 +75,7 @@ class TaskForm extends Component {
           <div className="card-header bg-warning text-white">
             {id !== '' ? 'Edit job to do' : 'Add job to do'}
             <div className="float-right">
-              <a name="" id="" className="text-dark" href="!#" role="button" onClick={this.onCloseForm}>
+              <a name="" id="" className="text-dark" href="#" role="button" onClick={this.onCloseForm}>
                 <i className="far fa-times-circle"></i>
               </a>
             </div>

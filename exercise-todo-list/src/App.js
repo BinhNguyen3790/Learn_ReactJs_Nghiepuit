@@ -3,6 +3,7 @@ import './App.css';
 import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
+import _ from 'lodash';
 
 export class App extends Component {
 
@@ -85,7 +86,10 @@ export class App extends Component {
 
   onUpdateStatus = (id) => {
     let { tasks } = this.state;
-    let index = this.findIndex(id);
+    // let index = this.findIndex(id);
+    var index = _.findIndex(tasks, (task) => {
+      return task.id === id;
+    })
     if (index !== -1) {
       tasks[index].status = !tasks[index].status;
       this.setState({
@@ -169,8 +173,11 @@ export class App extends Component {
       }
     })
     if (search) {
-      tasks = tasks.filter((task) => {
-        return task.name.toLowerCase().indexOf(search) !== -1;
+      // tasks = tasks.filter((task) => {
+      //   return task.name.toLowerCase().indexOf(search) !== -1;
+      // })
+      tasks = _.filter(tasks, (task) => {
+        return task.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
       })
     }
     if (sortBy === 'name') {
