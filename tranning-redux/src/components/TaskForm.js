@@ -11,7 +11,7 @@ class TaskForm extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.task) {
       this.setState({
         id: this.props.task.id,

@@ -4,6 +4,7 @@ import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
 import _ from 'lodash';
+import demo from './tranning/demo';
 
 export class App extends Component {
 
@@ -31,7 +32,7 @@ export class App extends Component {
     return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage && localStorage.getItem('tasks')) {
       var tasks = JSON.parse(localStorage.getItem('tasks'));
       this.setState({
