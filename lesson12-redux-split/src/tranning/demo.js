@@ -1,49 +1,16 @@
 import { createStore } from 'redux';
+import { status, sort } from './actions/index';
+import myReducer from './reducers/index'
 
-let initialState = {
-  status: true,
-  sort: {
-    by: "name",
-    value: 1
-  }
-}
+let store = createStore(myReducer);
+console.log(store.getState());
 
-let myReducer = (state = initialState, action) => {
-  if (action.type === 'TOGGLE_STATUS') {
-    state.status = !state.status;
-    return state;
-  }
+store.dispatch(status());
+console.log(store.getState());
 
-  if (action.type === 'TOGGLE_SORT') {
-    let { by, value } = action.sort;
-    let { status } = state;
-    return {
-      status: status,
-      sort: {
-        by: by,
-        value: value
-      }
-    }
-  }
-
-  return state;
-}
-
-const store = createStore(myReducer);
-
-console.log("Default: ", store.getState());
-// Change Status
-let action = { type: 'TOGGLE_STATUS' };
-store.dispatch(action);
-console.log("Toggle Status: ", store.getState());
-
-let sortAction = {
-  type: 'TOGGLE_SORT',
-  sort: {
-    by: 'name',
-    value: -1
-  }
-}
-store.dispatch(sortAction);
-console.log("Toggle Sort: ", store.getState());
+store.dispatch(sort({
+  by: 'status',
+  value: -1
+}));
+console.log(store.getState());
 
