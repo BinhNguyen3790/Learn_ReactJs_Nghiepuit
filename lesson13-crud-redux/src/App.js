@@ -9,7 +9,6 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [], //id: unique, name, status
       isDisplayForm: false,
       taskEdit: null,
       filter: {
@@ -19,23 +18,6 @@ export class App extends Component {
       search: '',
       sortBy: 'name',
       sortValue: 1
-    }
-  }
-
-  s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  }
-
-  generateID() {
-    return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
-  }
-
-  componentDidMount() {
-    if (localStorage && localStorage.getItem('tasks')) {
-      var tasks = JSON.parse(localStorage.getItem('tasks'));
-      this.setState({
-        tasks: tasks
-      })
     }
   }
 
@@ -64,23 +46,6 @@ export class App extends Component {
     this.setState({
       isDisplayForm: true
     })
-  }
-
-  onSubmit = (data) => {
-    let { tasks } = this.state; // let tasks = this.state.tasks
-    if (data.id === '') {
-      data.id = this.generateID();
-      tasks.push(data);
-    } else {
-      // Edit Item
-      let index = this.findIndex(data.id);
-      tasks[index] = data;
-    }
-    this.setState({
-      tasks: tasks,
-      taskEdit: null
-    });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
   onUpdateStatus = (id) => {
@@ -153,39 +118,39 @@ export class App extends Component {
   }
 
   render() {
-    var { tasks, isDisplayForm, taskEdit, filter, search, sortValue, sortBy } = this.state; // var tasks = this.state.tasks
-    if (filter) {
-      if (filter.name) {
-        tasks = tasks.filter((task) => {
-          return task.name.toLowerCase().indexOf(filter.name) !== -1;
-        })
-      }
-    }
-    tasks = tasks.filter((task) => {
-      if (filter.status === -1) {
-        return task
-      } else {
-        return task.status === (filter.status === 1 ? true : false)
-      }
-    })
-    if (search) {
-      tasks = tasks.filter((task) => {
-        return task.name.toLowerCase().indexOf(search) !== -1;
-      })
-    }
-    if (sortBy === 'name') {
-      tasks.sort((a, b) => {
-        if (a.name > b.name) return sortValue;
-        else if (a.name < b.name) return -sortValue;
-        else return 0;
-      })
-    } else {
-      tasks.sort((a, b) => {
-        if (a.status > b.status) return -sortValue;
-        else if (a.status < b.status) return sortValue;
-        else return 0;
-      })
-    }
+    var { isDisplayForm, taskEdit, sortValue, sortBy } = this.state; // var tasks = this.state.tasks
+    // if (filter) {
+    //   if (filter.name) {
+    //     tasks = tasks.filter((task) => {
+    //       return task.name.toLowerCase().indexOf(filter.name) !== -1;
+    //     })
+    //   }
+    // }
+    // tasks = tasks.filter((task) => {
+    //   if (filter.status === -1) {
+    //     return task
+    //   } else {
+    //     return task.status === (filter.status === 1 ? true : false)
+    //   }
+    // })
+    // if (search) {
+    //   tasks = tasks.filter((task) => {
+    //     return task.name.toLowerCase().indexOf(search) !== -1;
+    //   })
+    // }
+    // if (sortBy === 'name') {
+    //   tasks.sort((a, b) => {
+    //     if (a.name > b.name) return sortValue;
+    //     else if (a.name < b.name) return -sortValue;
+    //     else return 0;
+    //   })
+    // } else {
+    //   tasks.sort((a, b) => {
+    //     if (a.status > b.status) return -sortValue;
+    //     else if (a.status < b.status) return sortValue;
+    //     else return 0;
+    //   })
+    // }
     var elmTaskForm = isDisplayForm ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm} task={taskEdit} /> : "";
     return (
       <main>
@@ -221,7 +186,6 @@ export class App extends Component {
             </div>
           </div>
         </div>
-
       </main>
     )
   }
