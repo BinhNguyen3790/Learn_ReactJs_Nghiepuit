@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './App.css';
 import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
+import _ from 'lodash';
+// import demo from './tranning/demo';
 
-export class App extends Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isDisplayForm: false,
-      taskEdit: null,
+      taskEditing: null,
       filter: {
         name: '',
         status: -1
@@ -21,77 +23,95 @@ export class App extends Component {
     }
   }
 
-  onToggleForm = () => {
-    if (this.state.isDisplayForm && this.state.taskEdit !== null) {
+  toggleForm = () => {
+    if (this.state.isDisplayForm && this.state.taskEditing !== null) {
       this.setState({
         isDisplayForm: true,
-        taskEdit: null
+        taskEditing: null
       })
-
     } else {
       this.setState({
         isDisplayForm: !this.state.isDisplayForm,
-        taskEdit: null
-      })
+        taskEditing: null
+      });
     }
+  }
+
+  onShowForm = () => {
+    this.setState({
+      isDisplayForm: true
+    });
   }
 
   onCloseForm = () => {
     this.setState({
       isDisplayForm: false
-    })
+    });
   }
 
-  onOpenForm = () => {
+  submitForm = (data) => {
+    var { tasks } = this.state;
+    if (data.id === "") {
+      data.id = this.generateID();
+      tasks.push(data);
+    } else {
+      var index = this.findIndex(data.id);
+      tasks[index] = data;
+    }
+
     this.setState({
-      isDisplayForm: true
-    })
+      tasks: tasks,
+      taskEditing: null
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
-  onUpdateStatus = (id) => {
-    let { tasks } = this.state;
-    let index = this.findIndex(id);
+  changeStatus = (id) => {
+    var { tasks } = this.state;
+    // var index = this.findIndex(id);
+    var index = _.findIndex(tasks, (task) => {
+      return task.id === id
+    })
     if (index !== -1) {
       tasks[index].status = !tasks[index].status;
       this.setState({
         tasks: tasks
       });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
     }
   }
 
   findIndex = (id) => {
-    let { tasks } = this.state;
-    let result = -1;
+    var { tasks } = this.state;
+    var result = -1;
     tasks.forEach((task, index) => {
       if (task.id === id) {
         result = index;
       }
-    })
+    });
     return result;
   }
 
-  onUpdateItem = (id) => {
-    let { tasks } = this.state;
-    let index = this.findIndex(id);
-    let taskEdit = tasks[index];
-    this.setState({
-      taskEdit: taskEdit
-    });
-    this.onOpenForm();
-  }
-
-  onDeleteItem = (id) => {
-    let { tasks } = this.state;
-    let index = this.findIndex(id);
+  deleteItem = (id) => {
+    var { tasks } = this.state;
+    var index = this.findIndex(id);
     if (index !== -1) {
       tasks.splice(index, 1);
       this.setState({
         tasks: tasks
       });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
     }
-    this.onCloseForm();
+  }
+
+  onUpdate = (id) => {
+    var { tasks } = this.state;
+    var index = this.findIndex(id);
+    var taskEditing = tasks[index];
+    this.setState({
+      taskEditing: taskEditing
+    });
+    this.onShowForm();
   }
 
   onFilter = (filterName, filterStatus) => {
@@ -101,43 +121,49 @@ export class App extends Component {
         name: filterName.toLowerCase(),
         status: filterStatus
       }
-    })
+    });
   }
 
-  onSearch = (key) => {
+  onSearch = (search) => {
     this.setState({
-      search: key
-    })
+      search: search
+    });
   }
 
   onSort = (sortBy, sortValue) => {
     this.setState({
       sortBy: sortBy,
       sortValue: sortValue
-    })
+    });
   }
 
   render() {
-    var { isDisplayForm, taskEdit, sortValue, sortBy } = this.state; // var tasks = this.state.tasks
+    var { isDisplayForm, taskEditing, filter, search, sortBy, sortValue } = this.state;
     // if (filter) {
     //   if (filter.name) {
     //     tasks = tasks.filter((task) => {
     //       return task.name.toLowerCase().indexOf(filter.name) !== -1;
-    //     })
+    //     });
     //   }
+    //   tasks = tasks.filter((task) => {
+    //     if (filter.status === -1) {
+    //       return task;
+    //     } else {
+    //       return task.status === (filter.status === 1 ? true : false);
+    //     }
+    //   });
     // }
-    // tasks = tasks.filter((task) => {
-    //   if (filter.status === -1) {
-    //     return task
-    //   } else {
-    //     return task.status === (filter.status === 1 ? true : false)
-    //   }
-    // })
+
     // if (search) {
     //   tasks = tasks.filter((task) => {
     //     return task.name.toLowerCase().indexOf(search) !== -1;
     //   })
     // }
+
+    // tasks = _.filter(tasks, (task) => {
+    //   return task.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    // })
+
     // if (sortBy === 'name') {
     //   tasks.sort((a, b) => {
     //     if (a.name > b.name) return sortValue;
@@ -151,32 +177,32 @@ export class App extends Component {
     //     else return 0;
     //   })
     // }
-    var elmTaskForm = isDisplayForm ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm} task={taskEdit} /> : "";
+    var elmForm = isDisplayForm ? <TaskForm submitForm={this.submitForm} closeForm={this.onCloseForm} task={taskEditing} /> : "";
     return (
-      <main>
-        <div className="container-fluid">
+      <div className="main">
+        <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="card border-0">
                 <div className="card-header bg-white text-center">
-                  <h2>
-                    To Do List
-                  </h2>
+                  <h2>To Do List</h2>
                 </div>
                 <div className="card-body">
                   <div className="row">
-                    {/* Task Form */}
-                    {elmTaskForm}
-                    <div className={isDisplayForm === true ? "col-md-7" : "col-md-12"}>
+                    <div className={isDisplayForm ? "col-md-4" : ""}>
+                      {/* Task Form */}
+                      {elmForm}
+                    </div>
+                    <div className={isDisplayForm ? "col-md-8" : "col-md-12"}>
                       <div className="form-group">
-                        <button type="submit" className="btn btn-primary mr-1" onClick={this.onToggleForm}><i className="fas fa-plus"></i> Add Job</button>
+                        <button type="submit" className="btn btn-primary mr-1" onClick={this.toggleForm}><i className="fas fa-plus"></i> Add Job</button>
                       </div>
                       {/* Control */}
                       <Control onSearch={this.onSearch} onSort={this.onSort} sortBy={sortBy} sortValue={sortValue} />
                       <div className="row">
                         <div className="col">
                           {/* Task List */}
-                          <TaskList onUpdateStatus={this.onUpdateStatus} onUpdateItem={this.onUpdateItem} onDeleteItem={this.onDeleteItem} onFilter={this.onFilter} />
+                          <TaskList onFilter={this.onFilter} changeStatus={this.changeStatus} deleteItem={this.deleteItem} onUpdate={this.onUpdate} />
                         </div>
                       </div>
                     </div>
@@ -186,9 +212,9 @@ export class App extends Component {
             </div>
           </div>
         </div>
-      </main>
-    )
+      </div >
+    );
   }
-}
+};
 
-export default App
+export default App;

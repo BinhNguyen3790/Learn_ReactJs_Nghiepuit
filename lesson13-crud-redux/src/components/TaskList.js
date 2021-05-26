@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TaskItem from './TaskItem';
+import TaskListItem from '../components/TaskListItem';
 import { connect } from 'react-redux';
 
 class TaskList extends Component {
@@ -7,8 +7,8 @@ class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterName: '',
-      filterStatus: -1  //all: -1, activate: 1, deactivate: 0
+      filterName: "",
+      filterStatus: -1
     }
   }
 
@@ -19,21 +19,20 @@ class TaskList extends Component {
     this.props.onFilter(
       name === 'filterName' ? value : this.state.filterName,
       name === 'filterStatus' ? value : this.state.filterStatus
-    );
+    )
     this.setState({
       [name]: value
-    })
+    });
   }
 
   render() {
-    var { tasks } = this.props; // var tasks  = this.props.tasks
+    var { tasks } = this.props;
     var { filterName, filterStatus } = this.state;
-    var elmTasks = tasks.map((task, index) => {
-      return <TaskItem task={task} index={index} key={task.id} onUpdateStatus={this.props.onUpdateStatus} onUpdateItem={this.props.onUpdateItem} onDeleteItem={this.props.onDeleteItem} />
+    var elmItem = tasks.map((task, index) => {
+      return <TaskListItem onUpdate={this.props.onUpdate} deleteItem={this.props.deleteItem} changeStatus={this.props.changeStatus} key={index} index={index} task={task} />
     })
-
     return (
-      <table className="table table-hover">
+      <table className="table table-hover table-bordered">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -58,14 +57,14 @@ class TaskList extends Component {
             <td></td>
           </tr>
           {/* Task Item */}
-          {elmTasks}
+          {elmItem}
         </tbody>
       </table>
     )
   }
-}
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     tasks: state.tasks
   }

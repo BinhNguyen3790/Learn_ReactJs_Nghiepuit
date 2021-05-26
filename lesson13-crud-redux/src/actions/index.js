@@ -9,6 +9,6 @@ export const listAll = () => {
 export const addTask = (task) => {
   return {
     type: types.ADD_TASK,
-    task
+    task //task: task
   }
 }
