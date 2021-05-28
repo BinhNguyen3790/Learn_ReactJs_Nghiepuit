@@ -8,7 +8,7 @@ class Control extends Component {
 
       <div className="row">
         {/* Search */}
-        <ControlSearch onSearch={this.props.onSearch} />
+        <ControlSearch />
         {/* Sort */}
         <ControlSort onSort={this.props.onSort} sortBy={this.props.sortBy} sortValue={this.props.sortValue} />
       </div>

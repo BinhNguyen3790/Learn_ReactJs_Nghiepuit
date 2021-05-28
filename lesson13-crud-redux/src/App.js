@@ -60,16 +60,6 @@ class App extends Component {
 
     var { isDisplayForm } = this.props;
 
-    // if (search) {
-    //   tasks = tasks.filter((task) => {
-    //     return task.name.toLowerCase().indexOf(search) !== -1;
-    //   })
-    // }
-
-    // tasks = _.filter(tasks, (task) => {
-    //   return task.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    // })
-
     // if (sortBy === 'name') {
     //   tasks.sort((a, b) => {
     //     if (a.name > b.name) return sortValue;
