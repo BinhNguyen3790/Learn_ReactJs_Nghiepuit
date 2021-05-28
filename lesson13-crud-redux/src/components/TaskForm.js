@@ -56,7 +56,7 @@ class TaskForm extends Component {
     this.clearForm();
     this.closeForm();
   }
- 
+
   clearForm = () => {
     this.setState({
       name: "",
@@ -71,7 +71,7 @@ class TaskForm extends Component {
         <div className="card-header bg-warning text-white">
           {this.state.id !== "" ? "Edit job" : "Add job to do"}
           <div className="float-right">
-            <a name="" id="" className="text-dark" href="!#" role="button" >
+            <a name="" id="" className="text-dark" href="#" role="button" >
               <i className="far fa-times-circle" onClick={this.closeForm}></i>
             </a>
           </div>
