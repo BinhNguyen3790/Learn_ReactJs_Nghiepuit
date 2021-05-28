@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class ControlSort extends Component {
 
   onClick = (sortBy, sortValue) => {
-    this.props.onSort(sortBy, sortValue);
+    this.props.onSort({
+      by: sortBy,
+      value: sortValue
+    });
   }
 
   render() {
@@ -17,17 +21,17 @@ class ControlSort extends Component {
             </button>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="!#" className="dropdown-item" onClick={() => this.onClick("name", 1)}>
-                <i className="fas fa-sort-alpha-down"></i> Name A-Z {(this.props.sortBy === "name" && this.props.sortValue === 1) ? <i className="fas fa-check"></i> : ""}
+                <i className="fas fa-sort-alpha-down"></i> Name A-Z {(this.props.sort.by === "name" && this.props.sort.value === 1) ? <i className="fas fa-check"></i> : ""}
               </a>
               <a href="!#" className="dropdown-item" onClick={() => this.onClick("name", -1)}>
-                <i className="fas fa-sort-alpha-down-alt"></i> Name Z-A {(this.props.sortBy === "name" && this.props.sortValue === -1) ? <i className="fas fa-check"></i> : ""}
+                <i className="fas fa-sort-alpha-down-alt"></i> Name Z-A {(this.props.sort.by === "name" && this.props.sort.value === -1) ? <i className="fas fa-check"></i> : ""}
               </a>
               <div className="dropdown-divider"></div>
               <a href="!#" className="dropdown-item" onClick={() => this.onClick("status", 1)}>
-                <i className="fas fa-unlock-alt"></i> Status Open {(this.props.sortBy === "status" && this.props.sortValue === 1) ? <i className="fas fa-check"></i> : ""}
+                <i className="fas fa-unlock-alt"></i> Status Open {(this.props.sort.by === "status" && this.props.sort.value === 1) ? <i className="fas fa-check"></i> : ""}
               </a>
               <a href="!#" className="dropdown-item" onClick={() => this.onClick("status", -1)}>
-                <i className="fas fa-lock"></i> Status Close {(this.props.sortBy === "status" && this.props.sortValue === -1) ? <i className="fas fa-check"></i> : ""}
+                <i className="fas fa-lock"></i> Status Close {(this.props.sort.by === "status" && this.props.sort.value === -1) ? <i className="fas fa-check"></i> : ""}
               </a>
             </div>
           </div>
@@ -37,4 +41,18 @@ class ControlSort extends Component {
   }
 };
 
-export default ControlSort;
+const mapStateToProps = state => {
+  return {
+    sort: state.sort
+  }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onSort: (sort) => {
+      dispatch(actions.sortTask(sort));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ControlSort);

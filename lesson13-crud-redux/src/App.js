@@ -8,15 +8,6 @@ import * as actions from './actions/index';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: '',
-      sortBy: 'name',
-      sortValue: 1
-    }
-  }
-
   toggleForm = () => {
     var { itemEditing } = this.props;
     if (itemEditing && itemEditing.id !== '') {
@@ -31,48 +22,8 @@ class App extends Component {
     });
   }
 
-  findIndex = (id) => {
-    var { tasks } = this.state;
-    var result = -1;
-    tasks.forEach((task, index) => {
-      if (task.id === id) {
-        result = index;
-      }
-    });
-    return result;
-  }
-
-  onSearch = (search) => {
-    this.setState({
-      search: search
-    });
-  }
-
-  onSort = (sortBy, sortValue) => {
-    this.setState({
-      sortBy: sortBy,
-      sortValue: sortValue
-    });
-  }
-
   render() {
-    var { sortBy, sortValue } = this.state;
-
     var { isDisplayForm } = this.props;
-
-    // if (sortBy === 'name') {
-    //   tasks.sort((a, b) => {
-    //     if (a.name > b.name) return sortValue;
-    //     else if (a.name < b.name) return -sortValue;
-    //     else return 0;
-    //   })
-    // } else {
-    //   tasks.sort((a, b) => {
-    //     if (a.status > b.status) return -sortValue;
-    //     else if (a.status < b.status) return sortValue;
-    //     else return 0;
-    //   })
-    // }
     return (
       <div className="main">
         <div className="container">
@@ -93,7 +44,7 @@ class App extends Component {
                         <button type="submit" className="btn btn-primary mr-1" onClick={this.toggleForm}><i className="fas fa-plus"></i> Add Job</button>
                       </div>
                       {/* Control */}
-                      <Control onSearch={this.onSearch} onSort={this.onSort} sortBy={sortBy} sortValue={sortValue} />
+                      <Control />
                       <div className="row">
                         <div className="col">
                           {/* Task List */}
