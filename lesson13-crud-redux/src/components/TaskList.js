@@ -29,7 +29,7 @@ class TaskList extends Component {
     var { tasks } = this.props;
     var { filterName, filterStatus } = this.state;
     var elmItem = tasks.map((task, index) => {
-      return <TaskListItem onUpdate={this.props.onUpdate} deleteItem={this.props.deleteItem} changeStatus={this.props.changeStatus} key={index} index={index} task={task} />
+      return <TaskListItem key={index} index={index} task={task} />
     })
     return (
       <table className="table table-hover table-bordered">

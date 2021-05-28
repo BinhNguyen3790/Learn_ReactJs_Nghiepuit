@@ -8,44 +8,40 @@ class TaskForm extends Component {
     this.state = {
       id: '',
       name: '',
-      status: true,
+      status: true
     }
   }
 
   componentDidMount() {
-    if (this.props.task) {
+    if (this.props.itemEditing && this.props.itemEditing.id !== null) {
       this.setState({
-        id: this.props.task.id,
-        name: this.props.task.name,
-        status: this.props.task.status
+        id: this.props.itemEditing.id,
+        name: this.props.itemEditing.name,
+        status: this.props.itemEditing.status
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.task) {
+    if (nextProps && nextProps.itemEditing) {
       this.setState({
-        id: nextProps.task.id,
-        name: nextProps.task.name,
-        status: nextProps.task.status
+        id: nextProps.itemEditing.id,
+        name: nextProps.itemEditing.name,
+        status: nextProps.itemEditing.status
       })
-    } else if (!nextProps.task) {
-      this.setState({
-        id: "",
-        name: "",
-        status: false
-      })
+    } else if (!nextProps.itemEditing) {
+      this.clearForm();
     }
   }
 
   closeForm = () => {
-    this.props.closeForm();
+    this.props.onCloseForm();
   }
 
   onChange = (e) => {
     var target = e.target;
     var name = target.name;
-    var value = target.value
+    var value = target.value;
     if (name === "status") {
       value = target.value === "true" ? true : false;
     }
@@ -56,12 +52,11 @@ class TaskForm extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
-    // this.props.submitForm(this.state);
-    this.props.onAddTask(this.state);
+    this.props.onSaveTask(this.state);
     this.clearForm();
     this.closeForm();
   }
-
+ 
   clearForm = () => {
     this.setState({
       name: "",
@@ -70,11 +65,11 @@ class TaskForm extends Component {
   }
 
   render() {
-    var { id } = this.state;
+    if (!this.props.isDisplayForm) return null;
     return (
       <div className="card">
         <div className="card-header bg-warning text-white">
-          {id !== "" ? "Edit job" : "Add job to do"}
+          {this.state.id !== "" ? "Edit job" : "Add job to do"}
           <div className="float-right">
             <a name="" id="" className="text-dark" href="!#" role="button" >
               <i className="far fa-times-circle" onClick={this.closeForm}></i>
@@ -107,14 +102,18 @@ class TaskForm extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    isDisplayForm: state.isDisplayForm,
+    itemEditing: state.itemEditing
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onAddTask: (task) => {
-      dispatch(actions.addTask(task))
+    onSaveTask: (task) => {
+      dispatch(actions.saveTask(task))
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm());
     }
   }
 }
