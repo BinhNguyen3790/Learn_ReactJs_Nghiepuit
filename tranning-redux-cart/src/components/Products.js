@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ProductItem from './ProductsItem';
 
 class Products extends Component {
   render() {
@@ -8,9 +7,7 @@ class Products extends Component {
         <h1 className="section-heading">Danh Sách Sản Phẩm</h1>
         <div className="row">
           {/* <!-- ProductItem --> */}
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          {this.props.children}
         </div>
       </section>
     )
