@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 
 class ProductItem extends Component {
   render() {
+    var { product, index } = this.props;
+    var statusName = product.status ? 'Open' : 'Close';
+    var statusClass = product.status ? 'success' : 'danger';
     return (
       <tr>
-        <td>1</td>
-        <td>13233</td>
-        <td>Iphone 12</td>
-        <td>1500</td>
+        <td>{index + 1}</td>
+        <td>{product.id}</td>
+        <td>{product.name}</td>
+        <td>{product.price}</td>
         <td>
-          <span className='badge badge-success'>Open</span>
+          <span className={`badge badge-${statusClass}`}>{statusName}</span>
         </td>
         <td>
-          <button type="button" class="btn btn-warning mr-2">Edit</button>
-          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" className="btn btn-warning mr-2">Edit</button>
+          <button type="button" className="btn btn-danger">Delete</button>
         </td>
       </tr>
     )
