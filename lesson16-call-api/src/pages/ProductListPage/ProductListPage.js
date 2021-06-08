@@ -2,10 +2,27 @@ import React, { Component } from 'react';
 import ProductList from '../../components/ProductList/ProductList';
 import ProductItem from '../../components/ProductItem/ProductItem';
 import { connect } from 'react-redux';
+import callApi from './../../utils/apiCaller';
 
 class ProductListPage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: []
+    }
+  }
+
+  componentDidMount() {
+    callApi('products', 'GET', null).then(res => {
+      this.setState({
+        products: res.data
+      })
+    })
+  }
+
   render() {
-    var { products } = this.props;
+    var { products } = this.state;
     return (
       <div className="col-12">
         <button type="button" className="btn btn-success">Add Product</button>
