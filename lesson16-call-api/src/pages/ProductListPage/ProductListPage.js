@@ -3,6 +3,7 @@ import ProductList from '../../components/ProductList/ProductList';
 import ProductItem from '../../components/ProductItem/ProductItem';
 import { connect } from 'react-redux';
 import callApi from './../../utils/apiCaller';
+import { Link } from 'react-router-dom';
 
 class ProductListPage extends Component {
 
@@ -25,7 +26,7 @@ class ProductListPage extends Component {
     var { products } = this.state;
     return (
       <div className="col-12">
-        <button type="button" className="btn btn-success">Add Product</button>
+        <Link to="/product/add" className="btn btn-success">Add Product</Link>
         {/* ProductList */}
         <ProductList>
           {this.showProducts(products)}
