@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
-import * as Message from './../constants/Message';
 
 class CartItem extends Component {
-
   render() {
-    var { item } = this.props;
-    var { quantity } = item;
     return (
       <tr>
         <th scope="row">
-          <img src={item.product.image} alt={item.product.name} className="img-fluid z-depth-0" />
+          <img src="https://cdn.tgdd.vn/Products/Images/42/213031/iphone-12-xanh-duong-200x200.jpg" alt="Iphone 12" className="img-fluid z-depth-0" />
         </th>
         <td>
           <h5>
-            <strong>{item.product.name}</strong>
+            <strong>Iphone 12</strong>
           </h5>
         </td>
-        <td>{item.product.price}$</td>
+        <td>1200$</td>
         <td className="center-on-small-only">
-          <span className="qty">{quantity}  </span>
+          <span className="qty">2  </span>
           <div className="btn-group radio-group" data-toggle="buttons">
-            <label className="btn btn-sm btn-primary btn-rounded waves-effect waves-light" onClick={() => this.onUpdateQuantity(item.product, item.quantity - 1)}>
+            <label className="btn btn-sm btn-primary btn-rounded waves-effect waves-light">
               <a href="!#">—</a>
             </label>
-            <label className="btn btn-sm btn-primary btn-rounded waves-effect waves-light" onClick={() => this.onUpdateQuantity(item.product, item.quantity + 1)}>
+            <label className="btn btn-sm btn-primary btn-rounded waves-effect waves-light">
               <a href="!#">+</a>
             </label>
           </div>
         </td>
-        <td>{this.showSubTotal(item.product.price, item.quantity)}$</td>
+        <td>1500$</td>
         <td>
           <button
             type="button"
@@ -36,29 +32,10 @@ class CartItem extends Component {
             data-toggle="tooltip"
             data-placement="top"
             title=""
-            data-original-title="Remove item"
-            onClick={() => this.onDelete(item.product)}
-          >
-            X
-          </button>
+            data-original-title="Remove item">X</button>
         </td>
       </tr>
     )
-  }
-  onUpdateQuantity = (product, quantity) => {
-    if (quantity > 0) {
-      var { onUpdateProductInCart, onChangeMessage } = this.props;
-      onUpdateProductInCart(product, quantity);
-      onChangeMessage(Message.MSG_UPDATE_CART_SUCCESS);
-    }
-  }
-  onDelete = (product) => {
-    var { onDeleteProductInCart, onChangeMessage } = this.props;
-    onDeleteProductInCart(product);
-    onChangeMessage(Message.MSG_DELETE_CART_SUCCESS);
-  }
-  showSubTotal = (price, quantity) => {
-    return price * quantity;
   }
 };
 
