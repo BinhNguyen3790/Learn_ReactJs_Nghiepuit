@@ -8,15 +8,9 @@ class ProductsContainer extends Component {
   render() {
     var { products } = this.props;
     return (
-      <section className="section">
-        <h1 className="section-heading">Danh Sách Sản Phẩm</h1>
-        <div className="row">
-          {/* <!-- ProductItem --> */}
-          <Products>
-            {this.showProducts(products)}
-          </Products>
-        </div>
-      </section>
+      <Products>
+        {this.showProducts(products)}
+      </Products>
     )
   }
 
