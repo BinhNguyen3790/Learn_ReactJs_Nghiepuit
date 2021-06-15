@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 
 class CartItem extends Component {
   render() {
+    var { item } = this.props;
     return (
       <tr>
         <th scope="row">
-          <img src="https://cdn.tgdd.vn/Products/Images/42/213031/iphone-12-xanh-duong-200x200.jpg" alt="Iphone 12" className="img-fluid z-depth-0" />
+          <img src={item.product.image} alt={item.product.name} className="img-fluid z-depth-0" />
         </th>
         <td>
           <h5>
-            <strong>Iphone 12</strong>
+            <strong>{item.product.name}</strong>
           </h5>
         </td>
-        <td>1200$</td>
+        <td>{item.product.price}$</td>
         <td className="center-on-small-only">
-          <span className="qty">2  </span>
+          <span className="qty">{item.quantity}  </span>
           <div className="btn-group radio-group" data-toggle="buttons">
             <label className="btn btn-sm btn-primary btn-rounded waves-effect waves-light">
               <a href="!#">—</a>
@@ -24,7 +25,7 @@ class CartItem extends Component {
             </label>
           </div>
         </td>
-        <td>1500$</td>
+        <td>{this.showSubTotal(item.product.price, item.quantity)}$</td>
         <td>
           <button
             type="button"
@@ -36,6 +37,9 @@ class CartItem extends Component {
         </td>
       </tr>
     )
+  }
+  showSubTotal = (price, quantity) => {
+    return price * quantity;
   }
 };
 
