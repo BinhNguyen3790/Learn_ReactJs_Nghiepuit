@@ -37,7 +37,7 @@ class CartItem extends Component {
         </td>
       </tr>
     )
-  }
+  };
   showSubTotal = (price, quantity) => {
     return price * quantity;
   }
