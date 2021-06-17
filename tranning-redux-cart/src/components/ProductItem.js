@@ -26,7 +26,7 @@ class ProductItem extends Component {
             <div className="card-footer">
               <span className="left">{product.price}$</span>
               <span className="right">
-                <a href="!#" className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
+                <a href="!#" className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart" onClick={() => this.onAddToCart(product)}>
                   <i className="fa fa-shopping-cart"></i>
                 </a>
               </span>
@@ -35,7 +35,7 @@ class ProductItem extends Component {
         </div>
       </div>
     )
-  }
+  };
   showRatings(rating) {
     var result = [];
     for (var i = 1; i <= rating; i++) {
@@ -45,6 +45,9 @@ class ProductItem extends Component {
       result.push(<li key={i + j}><i className="fa fa-star-o"></i></li>)
     }
     return result;
+  };
+  onAddToCart = (product) => {
+    this.props.onAddToCart(product);
   }
 };
 
