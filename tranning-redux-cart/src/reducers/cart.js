@@ -1,39 +1,38 @@
 import * as Types from './../constants/ActionType';
-// var data = JSON.parse(localStorage.getItem('cart'));
-var initialState = [
-  {
-    product: {
-      id: 1,
-      name: "iphone 7 plus",
-      image: "https://cdn.tgdd.vn/Products/Images/42/213031/iphone-12-xanh-duong-200x200.jpg",
-      description: "Make by Apple",
-      price: 500,
-      inventory: 10,
-      rating: 4
-    },
-    quantity: 5
-  },
-  {
-    product: {
-      id: 3,
-      name: "Oppo F1s",
-      image: "https://cdn.tgdd.vn/Products/Images/42/213031/iphone-12-xanh-duong-200x200.jpg",
-      description: "Make by China",
-      price: 450,
-      inventory: 5,
-      rating: 3
-    },
-    quantity: 2
-  }
-];
+var data = JSON.parse(localStorage.getItem('cart'));
+var initialState = [];
 
 const cart = (state = initialState, action) => {
+  var { product, quantity } = action;
+  var index = -1;
   switch (action.type) {
     case Types.ADD_TO_CART:
-      console.log(action);
+      index = findIndex(state, product);
+      if (index !== -1) {
+        state[index].quantity += quantity;
+      } else {
+        state.push({
+          product,
+          quantity
+        });
+      }
+      localStorage.setItem("cart", JSON.stringify(state));
       return [...state];
     default: return [...state];
   }
+};
+
+var findIndex = (cart, product) => {
+  var index = -1;
+  if (cart.length > 0) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].product.id === product.id) {
+        index = i;
+        break;
+      }
+    }
+  }
+  return index;
 }
 
 export default cart;
