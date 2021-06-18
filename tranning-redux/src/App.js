@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
-import './App.css';
 
 export class App extends Component {
 
@@ -26,7 +25,7 @@ export class App extends Component {
                     </div>
                     <div className="col-md-8">
                       <div className="form-group">
-                        <button type="submit" className="btn btn-primary mr-1" onClick={this.toggleForm}><i className="fas fa-plus"></i> Add Job</button>
+                        <button type="submit" className="btn btn-primary mr-1" ><i className="fas fa-plus"></i> Add Job</button>
                       </div>
                       {/* Control */}
                       <Control />

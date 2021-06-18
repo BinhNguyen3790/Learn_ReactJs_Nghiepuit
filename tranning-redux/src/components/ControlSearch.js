@@ -8,7 +8,7 @@ class ControlSearch extends Component {
         <div className="input-group">
           <input type="text" className="form-control" placeholder="Search...." name="search" />
           <div className="input-group-append">
-            <button className="btn btn-outline-secondary" type="button" onClick={this.onSearch}><i className="fas fa-search"></i> Search</button>
+            <button className="btn btn-outline-secondary" type="button" ><i className="fas fa-search"></i> Search</button>
           </div>
         </div>
       </div>
