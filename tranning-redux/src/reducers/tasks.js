@@ -21,8 +21,28 @@ const tasks = (state = initialState, action) => {
       state.push(newTasks);
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
+    case Types.CHANGE_STATUS:
+      var index = -1;
+      index = findIndex(state, action.id);
+      if (index !== -1) {
+        state[index].status = !state[index].status;
+      }
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return [...state];
     default: return state;
   }
-}
+};
+
+var findIndex = (tasks, id) => {
+  var result = -1;
+  if (tasks.length > 0) {
+    tasks.forEach((task, index) => {
+      if (task.id === id) {
+        result = index;
+      }
+    })
+  }
+  return result;
+};
 
 export default tasks;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TaskListItem from '../components/TaskListItem';
 import { connect } from 'react-redux';
+import { actChangeStatus } from '../actions';
 
 class TaskList extends Component {
 
@@ -36,13 +37,14 @@ class TaskList extends Component {
         </tbody>
       </table>
     )
-  }; 
+  };
   showTaskItem = (tasks) => {
     var result = null;
+    var { onChangeStatus } = this.props;
     if (tasks.length > 0) {
       result = tasks.map((task, index) => {
         return (
-          <TaskListItem task={task} key={index} index={index + 1} />
+          <TaskListItem task={task} key={index} index={index + 1} onChangeStatus={onChangeStatus} />
         )
       })
     }
@@ -56,4 +58,12 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(TaskList);
+const mapDispatchToProp = (dispatch, props) => {
+  return {
+    onChangeStatus: (id) => {
+      dispatch(actChangeStatus(id))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(TaskList);

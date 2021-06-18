@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actAddTask } from './../actions/index';
+import { actAddTask, actCloseForm } from './../actions/index';
 
 class TaskForm extends Component {
 
@@ -20,7 +20,7 @@ class TaskForm extends Component {
           <div className="card-header bg-warning text-white">
             Add job to do
             <div className="float-right">
-              <a name="" id="" className="text-dark" href="!#" role="button" >
+              <a name="" id="" className="text-dark" href="!#" role="button" onClick={this.onCloseForm} >
                 <i className="far fa-times-circle" ></i>
               </a>
             </div>
@@ -60,7 +60,9 @@ class TaskForm extends Component {
     e.preventDefault();
     this.props.onAddTask(this.state)
   };
-
+  onCloseForm = () => {
+    this.props.onCloseForm();
+  }
 };
 
 const mapStateToProps = state => {
@@ -73,6 +75,9 @@ const mapDispatchToProp = (dispatch, props) => {
   return {
     onAddTask: (task) => {
       dispatch(actAddTask(task))
+    },
+    onCloseForm: () => {
+      dispatch(actCloseForm())
     }
   }
 }

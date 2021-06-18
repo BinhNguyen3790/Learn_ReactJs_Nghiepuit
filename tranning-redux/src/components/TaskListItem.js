@@ -8,7 +8,7 @@ class TaskListItem extends Component {
       <tr>
         <th scope="row">{index}</th>
         <td>{task.name}</td>
-        <td className="text-center"><span className={task.status === true ? "badge badge-success" : "badge badge-danger"}>{task.status === true ? "Open" : "Close"}</span></td>
+        <td className="text-center"><span onClick={() => this.ChangeStatus(task.id)} className={task.status === true ? "badge badge-success" : "badge badge-danger"}>{task.status === true ? "Open" : "Close"}</span></td>
         <td>
           <div className="text-center">
             <button type="submit" className="btn btn-warning text-white mr-1" ><i className="fas fa-pen"></i> Edit</button>
@@ -17,6 +17,9 @@ class TaskListItem extends Component {
         </td>
       </tr>
     )
+  };
+  ChangeStatus = (id) => {
+    this.props.onChangeStatus(id);
   }
 };
 
