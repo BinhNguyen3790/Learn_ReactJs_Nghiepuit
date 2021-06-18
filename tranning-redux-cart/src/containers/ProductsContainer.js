@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Products from './../components/Products';
-import ProductItem from './../components/ProductsItem';
+import Products from '../components/Products';
+import ProductItem from '../components/ProductItem';
 import PropTypes from 'prop-types';
-import * as actions from './../actions/index';
+import { actAddToCart, actChangeMessage } from './../actions/index';
 
 class ProductsContainer extends Component {
   render() {
@@ -36,7 +36,7 @@ ProductsContainer.propTypes = {
       description: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       inventory: PropTypes.number.isRequired,
-      rating: PropTypes.number.isRequired,
+      rating: PropTypes.number.isRequired
     })
   ).isRequired,
   onAddToCart: PropTypes.func.isRequired,
@@ -47,15 +47,15 @@ const mapStateToProps = state => {
   return {
     products: state.products
   }
-};
+}
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddToCart: (product) => {
-      dispatch(actions.actAddToCart(product, 1))
+      dispatch(actAddToCart(product, 1))
     },
     onChangeMessage: (message) => {
-      dispatch(actions.actChangeMessage(message))
+      dispatch(actChangeMessage(message))
     }
   }
 }

@@ -9,6 +9,6 @@ const message = (state = initialState, action) => {
       return action.message
     default: return state;
   }
-}
+};
 
 export default message;

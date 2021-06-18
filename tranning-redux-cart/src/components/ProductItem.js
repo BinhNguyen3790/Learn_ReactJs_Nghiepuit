@@ -36,17 +36,17 @@ class ProductItem extends Component {
         </div>
       </div>
     )
-  }
+  };
   showRatings(rating) {
     var result = [];
     for (var i = 1; i <= rating; i++) {
       result.push(<li key={i}><i className="fa fa-star"></i></li>);
     }
     for (var j = 1; j <= (5 - rating); j++) {
-      result.push(<li key={i + j}><i className="fa fa-star-o"></i></li>);
+      result.push(<li key={i + j}><i className="fa fa-star-o"></i></li>)
     }
-    return result
-  }
+    return result;
+  };
   onAddToCart = (product) => {
     this.props.onAddToCart(product);
     this.props.onChangeMessage(Message.MSG_ADD_CART_SUCCESS);
