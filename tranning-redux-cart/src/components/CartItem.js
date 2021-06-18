@@ -12,7 +12,7 @@ class CartItem extends Component {
 
   render() {
     var { item } = this.props;
-    var { quantity } = this.state;
+    var { quantity } = item.quantity > 0 ? item : this.state;
     return (
       <tr>
         <th scope="row">
