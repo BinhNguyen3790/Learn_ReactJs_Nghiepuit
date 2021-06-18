@@ -38,7 +38,9 @@ ProductsContainer.propTypes = {
       inventory: PropTypes.number.isRequired,
       rating: PropTypes.number.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  onAddToCart: PropTypes.func.isRequired,
+  onChangeMessage: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
