@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import TaskListItem from '../components/TaskListItem';
+import { connect } from 'react-redux';
 
 class TaskList extends Component {
 
   render() {
+    var { tasks } = this.props;
     return (
       <table className="table table-hover table-bordered">
         <thead>
@@ -30,11 +32,28 @@ class TaskList extends Component {
             <td></td>
           </tr>
           {/* Task Item */}
-          <TaskListItem />
+          {this.showTaskItem(tasks)}
         </tbody>
       </table>
     )
+  }; 
+  showTaskItem = (tasks) => {
+    var result = null;
+    if (tasks.length > 0) {
+      result = tasks.map((task, index) => {
+        return (
+          <TaskListItem task={task} key={index} index={index + 1} />
+        )
+      })
+    }
+    return result;
   }
 };
 
-export default TaskList;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks
+  }
+}
+
+export default connect(mapStateToProps, null)(TaskList);
