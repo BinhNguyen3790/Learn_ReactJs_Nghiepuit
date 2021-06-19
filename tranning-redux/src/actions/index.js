@@ -37,3 +37,10 @@ export const actChangeStatus = (id) => {
     id
   }
 }
+
+export const actDeleteTask = (id) => {
+  return {
+    type:Types.DELETE_TASK,
+    id
+  }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TaskListItem from '../components/TaskListItem';
 import { connect } from 'react-redux';
-import { actChangeStatus } from '../actions';
+import { actChangeStatus, actDeleteTask } from '../actions';
 
 class TaskList extends Component {
 
@@ -40,11 +40,11 @@ class TaskList extends Component {
   };
   showTaskItem = (tasks) => {
     var result = null;
-    var { onChangeStatus } = this.props;
+    var { onChangeStatus, onDeleteTask } = this.props;
     if (tasks.length > 0) {
       result = tasks.map((task, index) => {
         return (
-          <TaskListItem task={task} key={index} index={index + 1} onChangeStatus={onChangeStatus} />
+          <TaskListItem task={task} key={index} index={index + 1} onChangeStatus={onChangeStatus} onDeleteTask={onDeleteTask} />
         )
       })
     }
@@ -62,6 +62,9 @@ const mapDispatchToProp = (dispatch, props) => {
   return {
     onChangeStatus: (id) => {
       dispatch(actChangeStatus(id))
+    },
+    onDeleteTask: (id) => {
+      dispatch(actDeleteTask(id))
     }
   }
 }

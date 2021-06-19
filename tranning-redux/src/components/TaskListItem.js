@@ -12,7 +12,7 @@ class TaskListItem extends Component {
         <td>
           <div className="text-center">
             <button type="submit" className="btn btn-warning text-white mr-1" ><i className="fas fa-pen"></i> Edit</button>
-            <button type="submit" className="btn btn-danger" ><i className="far fa-trash-alt"></i> Delete</button>
+            <button type="submit" className="btn btn-danger" onClick={() => this.onDeleteTask(task.id)}><i className="far fa-trash-alt"></i> Delete</button>
           </div>
         </td>
       </tr>
@@ -20,6 +20,9 @@ class TaskListItem extends Component {
   };
   ChangeStatus = (id) => {
     this.props.onChangeStatus(id);
+  }
+  onDeleteTask = (id) => {
+    this.props.onDeleteTask(id)
   }
 };
 

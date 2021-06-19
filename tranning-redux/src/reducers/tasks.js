@@ -7,6 +7,7 @@ var s4 = () => {
 var randomID = () => {
   return s4() + s4() + s4() + '-' + s4() + s4() + s4() + '-' + s4() + s4() + s4();
 }
+var index = -1;
 
 const tasks = (state = initialState, action) => {
   switch (action.type) {
@@ -22,10 +23,16 @@ const tasks = (state = initialState, action) => {
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
     case Types.CHANGE_STATUS:
-      var index = -1;
       index = findIndex(state, action.id);
       if (index !== -1) {
         state[index].status = !state[index].status;
+      }
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return [...state];
+    case Types.DELETE_TASK:
+      index = findIndex(state, action.id);
+      if (index !== -1) {
+        state.splice(index, 1)
       }
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
