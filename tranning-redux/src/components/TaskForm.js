@@ -59,6 +59,7 @@ class TaskForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     this.props.onAddTask(this.state)
+    this.props.onCloseForm();
   };
   onCloseForm = () => {
     this.props.onCloseForm();

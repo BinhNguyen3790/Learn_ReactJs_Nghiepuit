@@ -20,9 +20,10 @@ class TaskListItem extends Component {
   };
   ChangeStatus = (id) => {
     this.props.onChangeStatus(id);
-  }
+  };
   onDeleteTask = (id) => {
-    this.props.onDeleteTask(id)
+    this.props.onDeleteTask(id);
+    this.props.onCloseForm();
   }
 };
 
