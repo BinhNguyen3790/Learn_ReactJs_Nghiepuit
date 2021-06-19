@@ -3,7 +3,7 @@ import TaskForm from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
 import { connect } from 'react-redux';
-import { actToggleForm } from './actions/index';
+import { actEditTask, actOpenForm, actToggleForm } from './actions/index';
 
 export class App extends Component {
 
@@ -46,13 +46,24 @@ export class App extends Component {
     )
   };
   onToggleForm = () => {
-    this.props.isDisplayForm();
+    var { itemEditing, onShowForm, isDisplayForm, onClearTag } = this.props;
+    if (itemEditing && itemEditing.id !== '') {
+      onShowForm();
+    } else {
+      isDisplayForm();
+    }
+    onClearTag({
+      id: '',
+      name: '',
+      status: false
+    });
   }
 }
 
 const mapStateToProps = state => {
   return {
-    toggleForm: state.isDisplayForm
+    toggleForm: state.isDisplayForm,
+    itemEditing: state.itemEditing
   }
 }
 
@@ -60,6 +71,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     isDisplayForm: () => {
       dispatch(actToggleForm())
+    },
+    onClearTag: (task) => {
+      dispatch(actEditTask(task))
+    },
+    onShowForm: () => {
+      dispatch(actOpenForm())
     }
   }
 }

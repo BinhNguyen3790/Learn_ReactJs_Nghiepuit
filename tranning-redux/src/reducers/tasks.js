@@ -13,13 +13,19 @@ const tasks = (state = initialState, action) => {
   switch (action.type) {
     case Types.SHOW_TASKS:
       return state;
-    case Types.ADD_TASK:
-      var newTasks = {
-        id: randomID(),
+    case Types.SAVE_TASK:
+      var task = {
+        id: action.task.id,
         name: action.task.name,
         status: action.task.status === 'true' ? true : false
       }
-      state.push(newTasks);
+      if (!task.id) {
+        task.id = randomID();
+        state.push(task);
+      } else {
+        index = findIndex(state, task.id);
+        state[index] = task;
+      }
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
     case Types.CHANGE_STATUS:

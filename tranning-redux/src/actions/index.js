@@ -6,9 +6,9 @@ export const listAll = () => {
   }
 }
 
-export const actAddTask = (task) => {
+export const actSaveTask = (task) => {
   return {
-    type: Types.ADD_TASK,
+    type: Types.SAVE_TASK,
     task
   }
 }
@@ -40,7 +40,14 @@ export const actChangeStatus = (id) => {
 
 export const actDeleteTask = (id) => {
   return {
-    type:Types.DELETE_TASK,
+    type: Types.DELETE_TASK,
     id
+  }
+}
+
+export const actEditTask = (task) => {
+  return {
+    type: Types.EDIT_TASK,
+    task
   }
 }
