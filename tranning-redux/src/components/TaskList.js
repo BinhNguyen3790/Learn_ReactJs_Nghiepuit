@@ -1,12 +1,34 @@
 import React, { Component } from 'react';
 import TaskListItem from '../components/TaskListItem';
 import { connect } from 'react-redux';
-import { actChangeStatus, actCloseForm, actDeleteTask, actEditTask, actOpenForm } from '../actions';
+import { actChangeStatus, actCloseForm, actDeleteTask, actEditTask, actFilterTask, actOpenForm } from '../actions';
 
 class TaskList extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterName: '',
+      filterStatus: -1
+    }
+  };
+
   render() {
-    var { tasks } = this.props;
+    var { tasks, filterTable } = this.props;
+    var { filterName, filterStatus } = this.state;
+    // Filter Table
+    if (filterTable.name) {
+      tasks = tasks.filter((task) => {
+        return task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1;
+      });
+    }
+    tasks = tasks.filter((task) => {
+      if (filterTable.status === -1) {
+        return task;
+      } else {
+        return task.status === (filterTable.status === 1 ? true : false);
+      }
+    })
     return (
       <table className="table table-hover table-bordered">
         <thead>
@@ -21,10 +43,10 @@ class TaskList extends Component {
           <tr>
             <th scope="row"></th>
             <td>
-              <input type="text" className="form-control" id="exampleFormControlInput1" name="filterName" />
+              <input type="text" className="form-control" id="exampleFormControlInput1" name="filterName" value={filterName} onChange={this.onChange} />
             </td>
             <td>
-              <select className="form-control" id="exampleFormControlSelect1" name="filterStatus">
+              <select className="form-control" id="exampleFormControlSelect1" name="filterStatus" value={filterStatus} onChange={this.onChange}>
                 <option value={-1}>All</option>
                 <option value={0}>Close</option>
                 <option value={1}>Open</option>
@@ -38,6 +60,19 @@ class TaskList extends Component {
       </table>
     )
   };
+  onChange = e => {
+    var target = e.target;
+    var name = target.name;
+    var value = target.value;
+    var filter = {
+      name: name === 'filterName' ? value : this.state.filterName,
+      status: name === 'filterStatus' ? value : this.state.filterStatus
+    }
+    this.props.onFilterTable(filter)
+    this.setState({
+      [name]: value
+    })
+  }
   showTaskItem = (tasks) => {
     var result = null;
     var { onChangeStatus, onDeleteTask, onCloseForm, onEditTask, onOpenForm } = this.props;
@@ -54,7 +89,8 @@ class TaskList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    filterTable: state.filterTable
   }
 }
 
@@ -74,6 +110,9 @@ const mapDispatchToProp = (dispatch, props) => {
     },
     onEditTask: (task) => {
       dispatch(actEditTask(task))
+    },
+    onFilterTable: (filter) => {
+      dispatch(actFilterTask(filter))
     }
   }
 }

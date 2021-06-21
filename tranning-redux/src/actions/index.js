@@ -51,3 +51,10 @@ export const actEditTask = (task) => {
     task
   }
 }
+
+export const actFilterTask = (filter) => {
+  return {
+    type: Types.FILTER_TABLE,
+    filter
+  }
+}
