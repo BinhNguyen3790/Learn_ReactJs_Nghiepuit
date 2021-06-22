@@ -58,3 +58,10 @@ export const actFilterTask = (filter) => {
     filter
   }
 }
+
+export const actSearchTask = (keyword) => {
+  return {
+    type: Types.SEARCH_TASK,
+    keyword
+  }
+}

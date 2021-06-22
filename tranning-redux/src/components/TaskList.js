@@ -14,7 +14,7 @@ class TaskList extends Component {
   };
 
   render() {
-    var { tasks, filterTable } = this.props;
+    var { tasks, filterTable, searchTask } = this.props;
     var { filterName, filterStatus } = this.state;
     // Filter Table
     if (filterTable.name) {
@@ -28,6 +28,10 @@ class TaskList extends Component {
       } else {
         return task.status === (filterTable.status === 1 ? true : false);
       }
+    })
+    // Filter Search
+    tasks = tasks.filter((task) => {
+      return task.name.toLowerCase().indexOf(searchTask.toLowerCase()) !== -1;
     })
     return (
       <table className="table table-hover table-bordered">
@@ -90,7 +94,8 @@ class TaskList extends Component {
 const mapStateToProps = state => {
   return {
     tasks: state.tasks,
-    filterTable: state.filterTable
+    filterTable: state.filterTable,
+    searchTask: state.searchTask
   }
 }
 
