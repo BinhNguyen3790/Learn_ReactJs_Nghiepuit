@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import ControlSearch from '../components/ControlSearch';
 import ControlSort from '../components/ControlSort';
 import { connect } from 'react-redux';
-import { actSearchTask } from '../actions';
+import { actSearchTask, actSortTask } from '../actions';
 
 class Control extends Component {
   render() {
-    var { onSearch } = this.props;
+    var { onSearch, onSort, showSort } = this.props;
     return (
       <div className="row">
         {/* Search */}
         <ControlSearch onSearch={onSearch} />
         {/* Sort */}
-        <ControlSort />
+        <ControlSort onSort={onSort} showSort={showSort} />
       </div>
     )
   }
@@ -20,6 +20,7 @@ class Control extends Component {
 
 const mapStateToProps = state => {
   return {
+    showSort: state.sortTask
   }
 }
 
@@ -27,6 +28,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onSearch: (keyword) => {
       dispatch(actSearchTask(keyword))
+    },
+    onSort: (sort) => {
+      dispatch(actSortTask(sort))
     }
   }
 }

@@ -16,7 +16,7 @@ class ControlSearch extends Component {
         <div className="input-group">
           <input type="text" className="form-control" placeholder="Search...." name="search" value={keyword} onChange={this.onChange} />
           <div className="input-group-append">
-            <button className="btn btn-outline-secondary" type="button" onClick={() => this.onSearch(keyword)}><i className="fas fa-search"></i> Search</button>
+            <button className="btn btn-outline-secondary" type="button" onClick={this.onSearch()}><i className="fas fa-search"></i> Search</button>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@ class ControlSearch extends Component {
     })
   };
 
-  onSearch = (keyword) => {
+  onSearch = () => {
     this.props.onSearch(this.state.search)
   }
 

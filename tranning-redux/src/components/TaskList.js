@@ -14,7 +14,7 @@ class TaskList extends Component {
   };
 
   render() {
-    var { tasks, filterTable, searchTask } = this.props;
+    var { tasks, filterTable, searchTask, sortTask } = this.props;
     var { filterName, filterStatus } = this.state;
     // Filter Table
     if (filterTable.name) {
@@ -33,6 +33,20 @@ class TaskList extends Component {
     tasks = tasks.filter((task) => {
       return task.name.toLowerCase().indexOf(searchTask.toLowerCase()) !== -1;
     })
+    // Sort Task
+    if (sortTask.by === 'name') {
+      tasks.sort((a, b) => {
+        if (a.name > b.name) return sortTask.value;
+        else if (a.name < b.name) return -sortTask.value;
+        else return 0;
+      })
+    } else {
+      tasks.sort((a, b) => {
+        if (a.status > b.status) return -sortTask.value;
+        else if (a.status < b.status) return sortTask.value;
+        else return 0;
+      })
+    }
     return (
       <table className="table table-hover table-bordered">
         <thead>
@@ -95,7 +109,8 @@ const mapStateToProps = state => {
   return {
     tasks: state.tasks,
     filterTable: state.filterTable,
-    searchTask: state.searchTask
+    searchTask: state.searchTask,
+    sortTask: state.sortTask
   }
 }
 
