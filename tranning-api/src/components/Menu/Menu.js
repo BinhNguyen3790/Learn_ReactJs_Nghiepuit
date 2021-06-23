@@ -1,38 +1,61 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+
+const menus = [
+  {
+    name: "Home",
+    to: '/',
+    exact: true
+  },
+  {
+    name: "Products",
+    to: '/products',
+    exact: false
+  }
+];
+
+const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
+  return (
+    <Route
+      path={to}
+      exact={activeOnlyWhenExact}
+      children={({ match }) => {
+        var active = match ? 'active' : '';
+        return (
+          <li className="nav-item">
+            <Link to={to} className={`nav-link ${active}`}>{label}</Link>
+          </li >
+        )
+      }}
+    />
+  )
+}
 
 class Menu extends Component {
   render() {
     return (
       <div>
-        <ul className="nav nav-tabs bg-dark mb-5" id="navId">
-          <li className="nav-item">
-            <a href="#tab1Id" className="nav-link active">Active</a>
-          </li>
-          <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="!#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="#tab2Id">Action</a>
-              <a className="dropdown-item" href="#tab3Id">Another action</a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#tab4Id">Action</a>
-            </div>
-          </li>
-          <li className="nav-item">
-            <a href="#tab5Id" className="nav-link">Another link</a>
-          </li>
-          <li className="nav-item">
-            <a href="!#" className="nav-link disabled">Disabled</a>
-          </li>
+        <ul className="nav nav-tabs mb-5" id="navId">
+          {this.showMenus(menus)}
         </ul>
-        <div className="tab-content">
-          <div className="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
-          <div className="tab-pane fade" id="tab2Id" role="tabpanel"></div>
-          <div className="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-          <div className="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-          <div className="tab-pane fade" id="tab5Id" role="tabpanel"></div>
-        </div>
       </div>
     )
+  };
+  showMenus = (menus) => {
+    var result = null;
+    if (menus.length > 0) {
+      result = menus.map((menu, index) => {
+        return (
+          <MenuLink
+            key={index}
+            label={menu.name}
+            to={menu.to}
+            activeOnlyWhenExact={menu.exact}
+          />
+        )
+      })
+    }
+    return result;
   }
 };
 export default Menu;
