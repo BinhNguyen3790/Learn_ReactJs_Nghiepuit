@@ -1,9 +1,52 @@
 import React, { Component } from 'react';
 import TaskListItem from '../components/TaskListItem';
+import { connect } from 'react-redux';
+import { actChangeStatus, actCloseForm, actDeleteTask, actEditTask, actFilterTask, actOpenForm } from '../actions';
 
 class TaskList extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterName: '',
+      filterStatus: -1
+    }
+  };
+
   render() {
+    var { tasks, filterTable, searchTask, sortTask } = this.props;
+    var { filterName, filterStatus } = this.state;
+    // Filter Table
+    if (filterTable.name) {
+      tasks = tasks.filter((task) => {
+        return task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1;
+      });
+    }
+    tasks = tasks.filter((task) => {
+      if (filterTable.status === -1) {
+        return task;
+      } else {
+        return task.status === (filterTable.status === 1 ? true : false);
+      }
+    })
+    // Filter Search
+    tasks = tasks.filter((task) => {
+      return task.name.toLowerCase().indexOf(searchTask.toLowerCase()) !== -1;
+    })
+    // Sort Task
+    if (sortTask.by === 'name') {
+      tasks.sort((a, b) => {
+        if (a.name > b.name) return sortTask.value;
+        else if (a.name < b.name) return -sortTask.value;
+        else return 0;
+      })
+    } else {
+      tasks.sort((a, b) => {
+        if (a.status > b.status) return -sortTask.value;
+        else if (a.status < b.status) return sortTask.value;
+        else return 0;
+      })
+    }
     return (
       <table className="table table-hover table-bordered">
         <thead>
@@ -18,10 +61,10 @@ class TaskList extends Component {
           <tr>
             <th scope="row"></th>
             <td>
-              <input type="text" className="form-control" id="exampleFormControlInput1" name="filterName" />
+              <input type="text" className="form-control" id="exampleFormControlInput1" name="filterName" value={filterName} onChange={this.onChange} />
             </td>
             <td>
-              <select className="form-control" id="exampleFormControlSelect1" name="filterStatus">
+              <select className="form-control" id="exampleFormControlSelect1" name="filterStatus" value={filterStatus} onChange={this.onChange}>
                 <option value={-1}>All</option>
                 <option value={0}>Close</option>
                 <option value={1}>Open</option>
@@ -30,11 +73,68 @@ class TaskList extends Component {
             <td></td>
           </tr>
           {/* Task Item */}
-          <TaskListItem />
+          {this.showTaskItem(tasks)}
         </tbody>
       </table>
     )
+  };
+  onChange = e => {
+    var target = e.target;
+    var name = target.name;
+    var value = target.value;
+    var filter = {
+      name: name === 'filterName' ? value : this.state.filterName,
+      status: name === 'filterStatus' ? value : this.state.filterStatus
+    }
+    this.props.onFilterTable(filter)
+    this.setState({
+      [name]: value
+    })
+  }
+  showTaskItem = (tasks) => {
+    var result = null;
+    var { onChangeStatus, onDeleteTask, onCloseForm, onEditTask, onOpenForm } = this.props;
+    if (tasks.length > 0) {
+      result = tasks.map((task, index) => {
+        return (
+          <TaskListItem task={task} key={index} index={index + 1} onChangeStatus={onChangeStatus} onDeleteTask={onDeleteTask} onCloseForm={onCloseForm} onEditTask={onEditTask} onOpenForm={onOpenForm} />
+        )
+      })
+    }
+    return result;
   }
 };
 
-export default TaskList;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks,
+    filterTable: state.filterTable,
+    searchTask: state.searchTask,
+    sortTask: state.sortTask
+  }
+}
+
+const mapDispatchToProp = (dispatch, props) => {
+  return {
+    onChangeStatus: (id) => {
+      dispatch(actChangeStatus(id))
+    },
+    onDeleteTask: (id) => {
+      dispatch(actDeleteTask(id))
+    },
+    onCloseForm: () => {
+      dispatch(actCloseForm())
+    },
+    onOpenForm: () => {
+      dispatch(actOpenForm())
+    },
+    onEditTask: (task) => {
+      dispatch(actEditTask(task))
+    },
+    onFilterTable: (filter) => {
+      dispatch(actFilterTask(filter))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(TaskList);
