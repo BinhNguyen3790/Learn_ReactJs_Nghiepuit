@@ -13,13 +13,13 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <Taskboard />
         <div className="App">
-          <h1>Hello redux saga</h1>
+          {/* <h1>Hello redux saga</h1>
           <Button variant="contained" color="primary">Hello</Button>
           <div className={classes.boxFlex}>
             <div className={classes.boxFlex__item}><div className={classes.title}><h2>React Js</h2></div></div>
             <div className={classes.boxFlex__item}><div className={classes.title}><h2>Angular Js</h2></div></div>
             <div className={classes.boxFlex__item}><div className={classes.title}><h2>Vue Js</h2></div></div>
-          </div>
+          </div> */}
         </div>
       </ThemeProvider>
     );
