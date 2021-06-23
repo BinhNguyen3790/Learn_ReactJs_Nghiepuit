@@ -29,7 +29,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
       }}
     />
   )
-}
+};
 
 class Menu extends Component {
   render() {
