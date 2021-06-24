@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import styles from './styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Taskboard from './../Taskboard/index';
@@ -8,7 +7,6 @@ import theme from '../../commons/Theme';
 
 class App extends Component {
   render() {
-    var { classes } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Taskboard />
