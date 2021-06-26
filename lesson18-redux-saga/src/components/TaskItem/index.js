@@ -39,7 +39,7 @@ class TaskItem extends Component {
           </Fab>
         </CardActions>
       </Card>
-    )
+    );
   }
 };
 

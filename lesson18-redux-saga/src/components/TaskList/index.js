@@ -15,11 +15,11 @@ class TaskList extends Component {
         </Box>
         <div className={classes.wrapperListTask}>
           {tasks.map((task) => {
-            return <TaskItem task={task} status={status} key={task.id} />
+            return <TaskItem task={task} status={status} key={task.id} />;
           })}
         </div>
       </Grid>
-    )
+    );
   }
 };
 

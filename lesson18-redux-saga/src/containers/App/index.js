@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
 import { ThemeProvider } from '@material-ui/styles';
-import Taskboard from './../Taskboard/index';
+import TaskBoard from './../TaskBoard/index';
 import theme from '../../commons/Theme';
 
 class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Taskboard />
+        <TaskBoard />
         <div className="App">
           {/* <h1>Hello redux saga</h1>
           <Button variant="contained" color="primary">Hello</Button>
