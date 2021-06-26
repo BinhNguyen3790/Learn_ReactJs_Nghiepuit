@@ -44,7 +44,7 @@ class TaskForm extends Component {
           </Button>
         </DialogActions>
       </Dialog>
-    )
+    );
   }
 };
 

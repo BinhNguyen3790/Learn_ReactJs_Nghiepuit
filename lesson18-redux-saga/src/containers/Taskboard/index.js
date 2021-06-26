@@ -29,7 +29,7 @@ const listTask = [
   }
 ];
 
-class Taskboard extends Component {
+class TaskBoard extends Component {
   state = {
     open: false
   }
@@ -39,7 +39,7 @@ class Taskboard extends Component {
       <Grid container spacing={2}>
         {STATUSES.map(status => {
           const taskFiltered = listTask.filter(task => task.status === status.value);
-          return <TaskList key={status.value} tasks={taskFiltered} status={status} />
+          return <TaskList key={status.value} tasks={taskFiltered} status={status} />;
         })}
       </Grid>
     );
@@ -49,13 +49,13 @@ class Taskboard extends Component {
   handleClose = () => {
     this.setState({
       open: false
-    })
+    });
   };
 
   openForm = () => {
     this.setState({
       open: true
-    })
+    });
   };
 
   renderForm() {
@@ -74,8 +74,8 @@ class Taskboard extends Component {
         {this.renderBoard()}
         {this.renderForm()}
       </div>
-    )
+    );
   }
 };
 
-export default withStyles(styles)(Taskboard);
+export default withStyles(styles)(TaskBoard);
