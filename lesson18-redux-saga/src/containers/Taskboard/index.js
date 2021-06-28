@@ -44,7 +44,7 @@ class TaskBoard extends Component {
       </Grid>
     );
     return xhtml;
-  };
+  }
 
   handleClose = () => {
     this.setState({
@@ -65,7 +65,7 @@ class TaskBoard extends Component {
       <TaskForm open={open} onClose={this.handleClose} />
     );
     return xhtml;
-  };
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -76,6 +76,6 @@ class TaskBoard extends Component {
       </div>
     );
   }
-};
+}
 
 export default withStyles(styles)(TaskBoard);
