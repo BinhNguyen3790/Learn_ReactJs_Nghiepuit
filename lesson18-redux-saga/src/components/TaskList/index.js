@@ -7,7 +7,7 @@ import TaskItem from './../TaskItem/index';
 
 class TaskList extends Component {
   render() {
-    var { classes, tasks, status } = this.props;
+    let { classes, tasks, status } = this.props;
     return (
       <Grid item md={4} xs={12} key={status.value}>
         <Box mt={2} mb={1}>
@@ -21,6 +21,6 @@ class TaskList extends Component {
       </Grid>
     );
   }
-};
+}
 
 export default withStyles(styles)(TaskList);

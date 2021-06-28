@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import CardContent from '@material-ui/core/CardContent';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/styles';
+import React, { Component } from 'react';
 import styles from './styles';
 
 class TaskItem extends Component {
@@ -41,6 +41,6 @@ class TaskItem extends Component {
       </Card>
     );
   }
-};
+}
 
 export default withStyles(styles)(TaskItem);

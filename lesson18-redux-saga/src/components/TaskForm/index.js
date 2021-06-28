@@ -46,6 +46,6 @@ class TaskForm extends Component {
       </Dialog>
     );
   }
-};
+}
 
 export default withStyles(styles)(TaskForm);
