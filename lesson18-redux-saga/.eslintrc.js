@@ -10,12 +10,13 @@ module.exports = {
   extends: [
     //   'eslint:recommended',
     //   'plugin:react/recommended'
-    'airbnb'
+    'airbnb',
+    'prettier'
   ],
   rules: {
-    semi: 1,
+    // semi: 1,
     // 'react/prop-types': 1
-    // quotes: [2, 'double']
+    quotes: [2, 'double'],
     'linebreak-style': 0,
     'import/no-extraneous-dependencies': 0,
     'class-methods-use-this': 0,
@@ -37,6 +38,8 @@ module.exports = {
     'arrow-body-style': 0,
     'max-len': 0,
     'import/prefer-default-export': 0,
-    'prefer-const': 0
-  }
+    'prefer-const': 0,
+    'prettier/prettier': ['error']
+  },
+  plugins: [prettier]
 };
