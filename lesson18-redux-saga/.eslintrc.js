@@ -11,7 +11,7 @@ module.exports = {
     //   'eslint:recommended',
     //   'plugin:react/recommended'
     'airbnb',
-    'prettier'
+    // 'prettier'
   ],
   rules: {
     // semi: 1,
@@ -39,7 +39,7 @@ module.exports = {
     'max-len': 0,
     'import/prefer-default-export': 0,
     'prefer-const': 0,
-    'prettier/prettier': ['error']
+    // 'prettier/prettier': ['error']
   },
-  plugins: [prettier]
+  // plugins: [prettier]
 };
