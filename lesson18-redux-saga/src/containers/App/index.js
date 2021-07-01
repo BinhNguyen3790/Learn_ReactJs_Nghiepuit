@@ -4,7 +4,6 @@ import styles from './styles';
 import { ThemeProvider } from '@material-ui/styles';
 import TaskBoard from './../TaskBoard/index';
 import theme from '../../commons/Theme';
-
 class App extends Component {
   render() {
     return (
