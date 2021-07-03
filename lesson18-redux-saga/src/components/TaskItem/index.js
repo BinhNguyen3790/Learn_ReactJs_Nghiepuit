@@ -1,13 +1,13 @@
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Fab from '@material-ui/core/Fab';
-import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/styles';
-import React, { Component } from 'react';
-import styles from './styles';
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Fab from "@material-ui/core/Fab";
+import Grid from "@material-ui/core/Grid";
+import Icon from "@material-ui/core/Icon";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/styles";
+import React, { Component } from "react";
+import styles from "./styles";
 
 class TaskItem extends Component {
   render() {
@@ -28,14 +28,10 @@ class TaskItem extends Component {
         </CardContent>
         <CardActions className={classes.cardActions}>
           <Fab color="primary" aria-label="edit" size="small">
-            <Icon fontSize="small">
-              edit_icon
-            </Icon>
+            <Icon fontSize="small">edit_icon</Icon>
           </Fab>
           <Fab color="primary" aria-label="delete" size="small">
-            <Icon fontSize="small">
-              delete_icon
-            </Icon>
+            <Icon fontSize="small">delete_icon</Icon>
           </Fab>
         </CardActions>
       </Card>

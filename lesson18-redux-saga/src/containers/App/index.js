@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core';
-import styles from './styles';
-import { ThemeProvider } from '@material-ui/styles';
-import TaskBoard from './../TaskBoard/index';
-import theme from '../../commons/Theme';
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core";
+import styles from "./styles";
+import { ThemeProvider } from "@material-ui/styles";
+import TaskBoard from "./../TaskBoard/index";
+import theme from "../../commons/Theme";
 class App extends Component {
   render() {
     return (
