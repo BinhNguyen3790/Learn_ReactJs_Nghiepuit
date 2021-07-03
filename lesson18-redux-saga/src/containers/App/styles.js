@@ -1,6 +1,6 @@
 const styles = () => ({
   boxFlex: {
-    display: 'flex'
+    display: "flex",
   },
   boxFlex__item: {
     width: "33.3%",
@@ -9,8 +9,8 @@ const styles = () => ({
   title: {
     padding: "1rem",
     border: "3px solid silver",
-    borderRadius: "10px"
-  }
+    borderRadius: "10px",
+  },
 });
 
 export default styles;

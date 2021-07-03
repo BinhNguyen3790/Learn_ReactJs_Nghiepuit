@@ -42,4 +42,9 @@ module.exports = {
     // 'prettier/prettier': ['error']
   },
   // plugins: [prettier]
+  env: {
+    "es6": true,
+    "browser": true,
+    "node": true
+  }
 };
