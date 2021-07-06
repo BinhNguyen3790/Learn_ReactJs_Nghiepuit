@@ -39,6 +39,8 @@ module.exports = {
     'max-len': 0,
     'import/prefer-default-export': 0,
     'prefer-const': 0,
+    'import/newline-after-import': 0,
+    'react/jsx-user-vars': 2,
     // 'prettier/prettier': ['error']
   },
   // plugins: [prettier]
