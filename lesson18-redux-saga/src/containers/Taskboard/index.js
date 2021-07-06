@@ -70,7 +70,6 @@ class TaskBoard extends Component {
   }
   render() {
     const { classes } = this.props;
-    var test = null;
     return (
       <div className={classes.taskBoard}>
         <Button variant="contained" color="primary" onClick={this.openForm}>
