@@ -39,7 +39,7 @@ class TaskBoard extends Component {
       <Grid container spacing={2}>
         {STATUSES.map((status) => {
           const taskFiltered = listTask.filter(
-            (task) => task.status === status.value
+            (task) => task.status === status.value,
           );
           return (
             <TaskList key={status.value} tasks={taskFiltered} status={status} />
@@ -70,6 +70,7 @@ class TaskBoard extends Component {
   }
   render() {
     const { classes } = this.props;
+    var test = null;
     return (
       <div className={classes.taskBoard}>
         <Button variant="contained" color="primary" onClick={this.openForm}>
