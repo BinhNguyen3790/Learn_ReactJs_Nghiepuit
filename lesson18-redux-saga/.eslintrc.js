@@ -8,14 +8,14 @@ module.exports = {
     }
   },
   extends: [
-    //   'eslint:recommended',
-    //   'plugin:react/recommended'
+    'eslint:recommended',
+    'plugin:react/recommended',
     'airbnb',
-    // 'prettier'
+    "eslint-config-prettier"
   ],
   rules: {
-    // semi: 1,
-    // 'react/prop-types': 1
+    semi: 1,
+    'react/prop-types': 1,
     quotes: [2, 'double'],
     'linebreak-style': 0,
     'import/no-extraneous-dependencies': 0,
@@ -41,9 +41,13 @@ module.exports = {
     'prefer-const': 0,
     'import/newline-after-import': 0,
     'react/jsx-user-vars': 2,
-    // 'prettier/prettier': ['error']
+    'prettier/prettier': ['error', {
+      endOfLine: 'auto'
+    }]
   },
-  // plugins: [prettier]
+  plugins: [
+    "eslint-plugin-prettier"
+  ],
   env: {
     "es6": true,
     "browser": true,
