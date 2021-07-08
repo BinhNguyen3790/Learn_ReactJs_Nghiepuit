@@ -40,7 +40,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'prefer-const': 0,
     'import/newline-after-import': 0,
-    'react/jsx-user-vars': 2,
+    // 'react/jsx-user-vars': 2,
     'prettier/prettier': ['error', {
       endOfLine: 'auto'
     }]
