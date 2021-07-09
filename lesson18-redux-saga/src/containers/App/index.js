@@ -4,21 +4,19 @@ import styles from "./styles";
 import { ThemeProvider } from "@material-ui/styles";
 import TaskBoard from "./../TaskBoard/index";
 import theme from "../../commons/Theme";
+import { Provider } from "react-redux";
+import configureStore from "../../redux/configureStore";
+
+const store = configureStore();
+
 class App extends Component {
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <TaskBoard />
-        <div className="App">
-          {/* <h1>Hello redux saga</h1>
-          <Button variant="contained" color="primary">Hello</Button>
-          <div className={classes.boxFlex}>
-            <div className={classes.boxFlex__item}><div className={classes.title}><h2>React Js</h2></div></div>
-            <div className={classes.boxFlex__item}><div className={classes.title}><h2>Angular Js</h2></div></div>
-            <div className={classes.boxFlex__item}><div className={classes.title}><h2>Vue Js</h2></div></div>
-          </div> */}
-        </div>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <TaskBoard />
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
