@@ -1,3 +1,5 @@
+export const API_ENPOINT = "http://localhost:3000";
+
 export const STATUSES = [
   {
     value: 0,
