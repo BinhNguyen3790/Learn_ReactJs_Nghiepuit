@@ -41,8 +41,9 @@ module.exports = {
     'prefer-const': 0,
     'import/newline-after-import': 0,
     // 'react/jsx-user-vars': 2,
+    'react/forbid-prop-types': 0,
     'prettier/prettier': ['error', {
-      endOfLine: 'auto'
+      endOfLine: 'auto',
     }]
   },
   plugins: [
