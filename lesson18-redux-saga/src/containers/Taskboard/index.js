@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as taskActions from "../../action/task";
 import PropTypes from "prop-types";
+// import { Box } from "@material-ui/core";
+// import { toast } from "react-toastify";
 
 // const listTask = [
 //   {
@@ -80,6 +82,11 @@ class TaskBoard extends Component {
     xhtml = <TaskForm open={open} onClose={this.handleClose} />;
     return xhtml;
   }
+
+  // showToast = () => {
+  //   toast.error("Success!");
+  // };
+
   render() {
     const { classes } = this.props;
     return (
@@ -87,6 +94,11 @@ class TaskBoard extends Component {
         <Button variant="contained" color="primary" onClick={this.openForm}>
           <AddIcon /> Add Job
         </Button>
+        {/* <Box ml="1">
+          <Button variant="contained" color="primary" onClick={this.showToast}>
+            Hiển thị thông báo!
+          </Button>
+        </Box> */}
         {this.renderBoard()}
         {this.renderForm()}
       </div>
