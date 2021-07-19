@@ -17,6 +17,18 @@
       "name": "samsung galaxy s7",
       "price": 1000,
       "status": true
+    },
+    {
+      "name": "dddd",
+      "price": "123",
+      "status": true,
+      "id": 4
+    },
+    {
+      "name": "nam",
+      "price": "321",
+      "status": "",
+      "id": 5
     }
   ]
 }
