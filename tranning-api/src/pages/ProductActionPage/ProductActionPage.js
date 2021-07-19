@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import callApi from '../../ultils/apiCaller';
+import { Link } from 'react-router-dom';
 
 class ProductActionPage extends Component {
 
@@ -25,12 +26,14 @@ class ProductActionPage extends Component {
   onSave = (e) => {
     e.preventDefault();
     var { txtName, txtPrice, txtStatus } = this.state;
+    var { history } = this.props;
     callApi('products', 'POST', {
       name: txtName,
       price: txtPrice,
       status: txtStatus
     }).then(res => {
       console.log(res);
+      history.goBack();
     })
   }
 
@@ -53,7 +56,8 @@ class ProductActionPage extends Component {
               <input type="checkbox" className="form-check-input" id="exampleCheck1" name="txtStatus" value={txtStatus} onChange={this.onChange} />
               <label className="form-check-label" htmlFor="exampleCheck1">Status Product</label>
             </div>
-            <button type="submit" className="btn btn-primary mt-2">Submit</button>
+            <Link to="/products" className="btn btn-danger mt-2">Go Back</Link>
+            <button type="submit" className="btn btn-primary  mt-2 ml-2">Submit</button>
           </form>
         </div>
       </div>
