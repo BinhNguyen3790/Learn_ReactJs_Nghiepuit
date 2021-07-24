@@ -1,12 +1,14 @@
-import { call, fork, put, take } from "redux-saga/effects";
+import { call, fork, put, take, delay } from "redux-saga/effects";
 import * as taskTypes from "./../constants/task";
 import { getList } from "./../apis/task";
 import { STATUS_CODE } from "./../constants/index";
 import { fetchListTaskFailed, fetchListTaskSuccess } from "../action/task";
+import { showLoading, hideLoading } from "./../action/ui";
 
 function* watchFetchListTaskAction() {
   while (true) {
     yield take(taskTypes.FETCH_TASK);
+    yield put(showLoading());
     const resp = yield call(getList);
     const { status, data } = resp;
     if (status === STATUS_CODE.SUCCESS) {
@@ -14,6 +16,8 @@ function* watchFetchListTaskAction() {
     } else {
       yield put(fetchListTaskFailed(data));
     }
+    yield delay(1000);
+    yield put(hideLoading());
   }
 }
 
