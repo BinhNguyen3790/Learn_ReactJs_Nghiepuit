@@ -44,6 +44,7 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'no-const-assign': 0,
     "require-yield": 0,
+    "react/no-unused-prop-types": 1,
     'prettier/prettier': ['error', {
       endOfLine: 'auto',
     }]
