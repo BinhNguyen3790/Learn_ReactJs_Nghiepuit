@@ -43,6 +43,7 @@ module.exports = {
     // 'react/jsx-user-vars': 2,
     'react/forbid-prop-types': 0,
     'no-const-assign': 0,
+    "require-yield": 0,
     'prettier/prettier': ['error', {
       endOfLine: 'auto',
     }]

@@ -11,40 +11,17 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as taskActions from "../../action/task";
 import PropTypes from "prop-types";
-// import { Box } from "@material-ui/core";
-// import { toast } from "react-toastify";
-
-// const listTask = [
-//   {
-//     id: 1,
-//     title: "Read book",
-//     description: "Read material-ui book",
-//     status: 0,
-//   },
-//   {
-//     id: 2,
-//     title: "Play Football",
-//     description: "With my friend",
-//     status: 1,
-//   },
-//   {
-//     id: 3,
-//     title: "Play game",
-//     description: "",
-//     status: 2,
-//   },
-// ];
 
 class TaskBoard extends Component {
   state = {
     open: false,
   };
 
-  componentDidMount() {
-    const { taskActionCreators } = this.props;
-    const { fetchListTaskRequest } = taskActionCreators;
-    fetchListTaskRequest();
-  }
+  // componentDidMount() {
+  //   const { taskActionCreators } = this.props;
+  //   const { fetchListTask } = taskActionCreators;
+  //   fetchListTask();
+  // }
 
   renderBoard() {
     const { listTask } = this.props;
@@ -87,18 +64,27 @@ class TaskBoard extends Component {
   //   toast.error("Success!");
   // };
 
+  loadData = () => {
+    const { taskActionCreators } = this.props;
+    const { fetchListTask } = taskActionCreators;
+    fetchListTask();
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.taskBoard}>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginRight: 20 }}
+          onClick={this.loadData}
+        >
+          Load Data
+        </Button>
         <Button variant="contained" color="primary" onClick={this.openForm}>
           <AddIcon /> Add Job
         </Button>
-        {/* <Box ml="1">
-          <Button variant="contained" color="primary" onClick={this.showToast}>
-            Hiển thị thông báo!
-          </Button>
-        </Box> */}
         {this.renderBoard()}
         {this.renderForm()}
       </div>
@@ -109,7 +95,7 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActionCreators: PropTypes.shape({
-    fetchListTaskRequest: PropTypes.func,
+    fetchListTask: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };
