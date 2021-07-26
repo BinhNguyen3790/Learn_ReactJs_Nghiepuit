@@ -7,45 +7,60 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles";
+import { Box, Grid, Modal } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 class TaskForm extends Component {
   render() {
     const { open, classes, onClose } = this.props;
     return (
-      <Dialog
-        open={open}
-        onClose={onClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title">Add Job</DialogTitle>
-        <DialogContent>
-          <TextField
-            id="standard-name-input"
-            label="Name"
-            type="name"
-            className={classes.TextField}
-            margin="normal"
-          />
-          <TextField
-            id="standard-multiline-flexible"
-            label="Multiline"
-            multiline
-            rowsMax={4}
-            className={classes.TextField}
-            margin="normal"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={onClose} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={onClose} color="primary" autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Modal open={open} onClose={onClose}>
+        <div className={classes.modal}>
+          <form>
+            <Grid container>
+              <Grid item md={12}>
+                <TextField
+                  id="standard-name-input"
+                  label="Title"
+                  type="name"
+                  className={classes.TextField}
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item md={12}>
+                <TextField
+                  id="standard-multiline-flexible"
+                  label="Description"
+                  multiline
+                  rowsMax={4}
+                  className={classes.TextField}
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item md={12}>
+                <Box display="flex" flexDirection="row-reverse" mt={2}>
+                  <Button variant="contained" onClick={onClose}>
+                    Cancel
+                  </Button>
+                  <Box mr={1}>
+                    <Button variant="contained" color="primary">
+                      Save
+                    </Button>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Modal>
     );
   }
 }
+
+TaskForm.propTypes = {
+  open: PropTypes.bool,
+  classes: PropTypes.object,
+  onClose: PropTypes.func,
+};
 
 export default withStyles(styles)(TaskForm);
