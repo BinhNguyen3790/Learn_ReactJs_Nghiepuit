@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 class AxiosService {
   constructor() {
@@ -17,6 +17,18 @@ class AxiosService {
 
   get(url) {
     return this.instance.get(url);
+  }
+
+  post(url, body) {
+    return this.instance.post(url, body);
+  }
+
+  put(url, body) {
+    return this.instance.put(url, body);
+  }
+
+  delete(url) {
+    return this.instance.delete(url);
   }
 }
 

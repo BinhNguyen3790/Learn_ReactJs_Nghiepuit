@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/styles";
-import styles from "./styles";
-import { TextField } from "@material-ui/core";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/styles';
+import { TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import styles from './styles';
 
 class SearchBox extends Component {
   render() {
@@ -14,7 +14,7 @@ class SearchBox extends Component {
           className={classes.textField}
           onChange={handleChange}
           margin="normal"
-          placeholder="nhập từ khóa"
+          placeholder="Nhập từ khóa"
         />
       </form>
     );

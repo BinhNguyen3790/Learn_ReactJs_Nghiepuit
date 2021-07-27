@@ -1,15 +1,12 @@
 const styles = () => ({
-  boxFlex: {
-    display: "flex",
+  box: {
+    display: 'flex',
+    alignItems: 'center',
   },
-  boxFlex__item: {
-    width: "33.3%",
-    padding: "1rem",
-  },
-  title: {
-    padding: "1rem",
-    border: "3px solid silver",
-    borderRadius: "10px",
+  shape: {
+    padding: 20,
+    margin: 10,
+    backgroundColor: 'red',
   },
 });
 
