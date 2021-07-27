@@ -1,49 +1,109 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/styles";
-import styles from "./styles";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import Grid from "@material-ui/core/Grid";
-import { STATUSES } from "../../constants";
-import TaskList from "../../components/TaskList";
-import TaskForm from "../../components/TaskForm";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as taskActions from "../../action/task";
-import PropTypes from "prop-types";
-// import { Box } from "@material-ui/core";
-// import { toast } from "react-toastify";
-
-// const listTask = [
-//   {
-//     id: 1,
-//     title: "Read book",
-//     description: "Read material-ui book",
-//     status: 0,
-//   },
-//   {
-//     id: 2,
-//     title: "Play Football",
-//     description: "With my friend",
-//     status: 1,
-//   },
-//   {
-//     id: 3,
-//     title: "Play game",
-//     description: "",
-//     status: 2,
-//   },
-// ];
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
+import { withStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Box } from '@material-ui/core';
+import TaskForm from '../TaskForm';
+import TaskList from '../../components/TaskList';
+import { STATUSES } from '../../constants';
+import * as taskActions from './../../actions/task';
+import * as modalActions from './../../actions/modal';
+import styles from './styles';
+import SearchBox from '../../components/SearchBox';
 
 class TaskBoard extends Component {
-  state = {
-    open: false,
-  };
-
   componentDidMount() {
     const { taskActionCreators } = this.props;
-    const { fetchListTaskRequest } = taskActionCreators;
-    fetchListTaskRequest();
+    const { fetchListTask } = taskActionCreators;
+    fetchListTask();
+  }
+
+  openForm = () => {
+    const { modalActionCreators, taskActionCreators } = this.props;
+    const { setTaskEditing } = taskActionCreators;
+    setTaskEditing(null);
+    const {
+      showModal,
+      changeModalTitle,
+      changeModalContent,
+    } = modalActionCreators;
+    showModal();
+    changeModalTitle('Thêm mới công việc');
+    changeModalContent(<TaskForm />);
+  };
+
+  loadData = () => {
+    const { taskActionCreators } = this.props;
+    const { fetchListTask } = taskActionCreators;
+    fetchListTask();
+  };
+
+  handleFilter = e => {
+    const { value } = e.target;
+    const { taskActionCreators } = this.props;
+    const { filterTask } = taskActionCreators;
+    filterTask(value);
+  };
+
+  handleEditTask = task => {
+    const { taskActionCreators, modalActionCreators } = this.props;
+    const { setTaskEditing } = taskActionCreators;
+    setTaskEditing(task);
+    const {
+      showModal,
+      changeModalTitle,
+      changeModalContent,
+    } = modalActionCreators;
+    showModal();
+    changeModalTitle('Cập nhật công việc');
+    changeModalContent(<TaskForm />);
+  };
+
+  showModalDeleteTask = task => {
+    const { modalActionCreators, classes } = this.props;
+    const {
+      showModal,
+      hideModal,
+      changeModalTitle,
+      changeModalContent,
+    } = modalActionCreators;
+    showModal();
+    changeModalTitle('Xóa công việc');
+    changeModalContent(
+      <div className={classes.modalDelete}>
+        <div className={classes.modalConfirmText}>
+          Bạn chắc chắn muốn xóa{' '}
+          <span className={classes.modalConfirmTextBold}>{task.title}</span>?
+        </div>
+        <Box display="flex" flexDirection="row-reverse" mt={2}>
+          <Box ml={1}>
+            <Button variant="contained" onClick={hideModal}>
+              Hủy Bỏ
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => this.handleDeleteTask(task)}
+            >
+              Đồng Ý
+            </Button>
+          </Box>
+        </Box>
+      </div>,
+    );
+  };
+
+  handleDeleteTask(task) {
+    const { id } = task;
+    const { taskActionCreators } = this.props;
+    const { deleteTask } = taskActionCreators;
+    deleteTask(id);
   }
 
   renderBoard() {
@@ -51,12 +111,18 @@ class TaskBoard extends Component {
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
-        {STATUSES.map((status) => {
+        {STATUSES.map(status => {
           const taskFiltered = listTask.filter(
-            (task) => task.status === status.value
+            task => task.status === status.value,
           );
           return (
-            <TaskList key={status.value} tasks={taskFiltered} status={status} />
+            <TaskList
+              key={status.value}
+              tasks={taskFiltered}
+              status={status}
+              onClickEdit={this.handleEditTask}
+              onClickDelete={this.showModalDeleteTask}
+            />
           );
         })}
       </Grid>
@@ -64,43 +130,37 @@ class TaskBoard extends Component {
     return xhtml;
   }
 
-  handleClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-
-  openForm = () => {
-    this.setState({
-      open: true,
-    });
-  };
-
-  renderForm() {
-    const { open } = this.state;
+  renderSearchBox() {
     let xhtml = null;
-    xhtml = <TaskForm open={open} onClose={this.handleClose} />;
+    xhtml = <SearchBox handleChange={this.handleFilter} />;
     return xhtml;
   }
-
-  // showToast = () => {
-  //   toast.error("Success!");
-  // };
 
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.taskBoard}>
-        <Button variant="contained" color="primary" onClick={this.openForm}>
-          <AddIcon /> Add Job
+      <div className={classes.taskBoard} id="1">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.loadData}
+          style={{
+            marginRight: 20,
+          }}
+        >
+          Load Data
         </Button>
-        {/* <Box ml="1">
-          <Button variant="contained" color="primary" onClick={this.showToast}>
-            Hiển thị thông báo!
-          </Button>
-        </Box> */}
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.openForm}
+        >
+          <AddIcon /> Thêm mới công việc
+        </Button>
+        {this.renderSearchBox()}
         {this.renderBoard()}
-        {this.renderForm()}
       </div>
     );
   }
@@ -109,23 +169,35 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActionCreators: PropTypes.shape({
-    fetchListTaskRequest: PropTypes.func,
+    fetchListTask: PropTypes.func,
+    filterTask: PropTypes.func,
+    setTaskEditing: PropTypes.func,
+    deleteTask: PropTypes.func,
+  }),
+  modalActionCreators: PropTypes.shape({
+    showModal: PropTypes.func,
+    hideModal: PropTypes.func,
+    changeModalTitle: PropTypes.func,
+    changeModalContent: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     listTask: state.task.listTask,
   };
 };
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     taskActionCreators: bindActionCreators(taskActions, dispatch),
+    modalActionCreators: bindActionCreators(modalActions, dispatch),
   };
 };
 
 export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(TaskBoard)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(TaskBoard),
 );
