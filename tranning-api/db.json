@@ -19,10 +19,10 @@
       "status": true
     },
     {
-      "name": "nam",
-      "price": "321",
-      "status": "",
-      "id": 5
+      "name": "qwerer",
+      "price": "9999",
+      "status": true,
+      "id": 4
     }
   ]
 }
