@@ -17,12 +17,6 @@
       "name": "samsung galaxy s7",
       "price": 1000,
       "status": true
-    },
-    {
-      "name": "qwerer",
-      "price": "9999",
-      "status": true,
-      "id": 4
     }
   ]
 }
