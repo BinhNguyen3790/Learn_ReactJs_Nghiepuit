@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import callApi from '../../ultils/apiCaller';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actAddProductRequest } from "../../actions/index";
 
 class ProductActionPage extends Component {
 
@@ -43,6 +45,12 @@ class ProductActionPage extends Component {
     e.preventDefault();
     var { id, txtName, txtPrice, txtStatus } = this.state;
     var { history } = this.props;
+    var product = {
+      id: id,
+      name: txtName,
+      price: txtPrice,
+      status: txtStatus
+    }
     if (id) {
       callApi(`products/${id}`, "PUT", {
         name: txtName,
@@ -52,13 +60,8 @@ class ProductActionPage extends Component {
         history.goBack();
       })
     } else {
-      callApi('products', 'POST', {
-        name: txtName,
-        price: txtPrice,
-        status: txtStatus
-      }).then(res => {
-        history.goBack();
-      })
+      this.props.onAddProduct(product);
+      history.goBack();
     }
   }
 
@@ -90,4 +93,12 @@ class ProductActionPage extends Component {
   }
 };
 
-export default ProductActionPage;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddProduct: (product) => {
+      dispatch(actAddProductRequest(product));
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ProductActionPage);
