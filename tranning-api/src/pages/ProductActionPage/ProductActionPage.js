@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import callApi from '../../ultils/apiCaller';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actAddProductRequest, actGetProductRequest } from "../../actions/index";
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from "../../actions/index";
 
 class ProductActionPage extends Component {
 
@@ -21,6 +20,18 @@ class ProductActionPage extends Component {
     if (match) {
       var id = match.params.id;
       this.props.onEditProduct(id);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.itemEditing) {
+      var { itemEditing } = nextProps;
+      this.setState({
+        id: itemEditing.id,
+        txtName: itemEditing.name,
+        txtPrice: itemEditing.price,
+        txtStatus: itemEditing.status
+      })
     }
   }
 
@@ -44,17 +55,11 @@ class ProductActionPage extends Component {
       status: txtStatus
     }
     if (id) {
-      callApi(`products/${id}`, "PUT", {
-        name: txtName,
-        price: txtPrice,
-        status: txtStatus
-      }).then(res => {
-        history.goBack();
-      })
+      this.props.onUpdateProduct(product);
     } else {
       this.props.onAddProduct(product);
-      history.goBack();
     }
+    history.goBack();
   }
 
   render() {
@@ -85,6 +90,12 @@ class ProductActionPage extends Component {
   }
 };
 
+const mapStateToProps = (state) => {
+  return {
+    itemEditing: state.itemEditing
+  }
+}
+
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddProduct: (product) => {
@@ -92,8 +103,11 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onEditProduct: (id) => {
       dispatch(actGetProductRequest(id));
+    },
+    onUpdateProduct: (product) => {
+      dispatch(actUpdateProductRequest(product));
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(ProductActionPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductActionPage);
