@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Iphone 12",
-      "price": 500,
+      "price": "500",
       "status": true
     },
     {
